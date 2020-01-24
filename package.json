@@ -1,6 +1,6 @@
 {
   "name": "pal-mongoose",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Mongoose types underpinning pal api",
   "main": "./lib",
   "files": [
