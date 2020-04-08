@@ -57,6 +57,6 @@ workflows:
     jobs:
       - test-audit
       - test-format
-      - test-lint
+      # - test-lint
       - test-types
-      - test
+      # - test
