@@ -53,6 +53,7 @@ module.exports = {
       _id: ObjectId("5b5a2cd69b1fafcf999d957e"),
       name: "Advancement Test - FC E3",
       alias: "advancement-test-fc-e3",
+      pronunciation: "Advancement Test F C E 3",
       desc:
         "Advancement tests are particularly important reaching E3 and E4 ratings. Study electronics skills, leadership, and general navy information to ace your test.",
       focusList: [
