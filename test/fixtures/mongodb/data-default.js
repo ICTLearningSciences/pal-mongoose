@@ -59,7 +59,6 @@ module.exports = {
       focusList: [
         {
           name: "Technical Skills",
-          pronunciation: "",
           desc:
             "Fundamental and applied electronics, such as understanding components and diagnosing faults.",
           _id: "technical-skills",
@@ -91,7 +90,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540cbecb4e208da0fb65"),
       name: "College Preparation",
-      pronunciation: "",
       alias: "college-preparation",
       desc:
         "Study Math, English, and writing skills required for admission and success in a competitive degree program. Review pros and cons for colleges and university options.",
@@ -107,7 +105,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540cbecb4e208da0fb64"),
       name: "Health and Wellness",
-      pronunciation: "",
       alias: "health-and-wellness",
       desc:
         "Improve your academic and job performance through skills sleep management, exercise skills, and eating habits.",
@@ -127,14 +124,12 @@ module.exports = {
       _id: ObjectId("5bb6540bbecb4e208da0f6e7"),
       name: "Diode Action",
       alias: "diode-action",
-      pronunciation: "Die Ode Action",
       recommender: null
     },
     {
       _id: ObjectId("5bb6540bbecb4e208da0f6ec"),
       name: "Polynomials Intro",
       alias: "polynomials-intro",
-      pronunciation: "",
       recommender: null
     }
   ],
@@ -146,7 +141,6 @@ module.exports = {
       desc: "Revisit basic circuits and diodes.",
       displayType: "multiple-choice",
       name: "Prerequisites",
-      pronunciation: "",
       ord: 0,
       resources: [
         ObjectId("5bb6540bbecb4e208da0f721"),
@@ -166,7 +160,6 @@ module.exports = {
       desc: "An intro tutorial covering the basics of diodes.",
       displayType: "web",
       name: "Diodes (Tutorial)",
-      pronunciation: "",
       ord: 1,
       resources: [ObjectId("5bb6540bbecb4e208da0f72c")],
       topic: ObjectId("5bb6540bbecb4e208da0f6e7"),
@@ -183,7 +176,6 @@ module.exports = {
       estMinHigh: 3,
       estMinLow: 2,
       name: "Transistors: Sneak Peek",
-      pronunciation: "",
       ord: -1,
       resources: [ObjectId("5bb6540bbecb4e208da0f729")],
       topic: ObjectId("5bb6540bbecb4e208da0f6e7"),
@@ -199,7 +191,6 @@ module.exports = {
       displayType: "auto-tutor",
       downloadable: true,
       name: "Review Diode Current Flow",
-      pronunciation: "",
       ord: 2,
       resources: [ObjectId("5bb6540bbecb4e208da0f727")],
       topic: ObjectId("5bb6540bbecb4e208da0f6e7"),
@@ -215,7 +206,6 @@ module.exports = {
       displayType: "auto-tutor",
       downloadable: true,
       name: "Review Normal Diode Breakdown Mode",
-      pronunciation: "",
       ord: 3,
       resources: [ObjectId("5bb6540bbecb4e208da0f72f")],
       topic: ObjectId("5bb6540bbecb4e208da0f6e7"),
@@ -227,7 +217,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540cbecb4e208da0fa6d"),
       name: "Polynomials Overview",
-      pronunciation: "",
       alias: "polynomials-intro-polynomials-overview",
       desc: "",
       type: "testing",
@@ -247,7 +236,6 @@ module.exports = {
       explorationLevel: 0.5,
       duration: 10,
       alias: "inots-pushing-the-line",
-      pronunciation: "",
       createdAt: "2019-06-11T18:13:49.628Z",
       isCmiAU: true,
       knowledgeComponents: [
@@ -269,7 +257,6 @@ module.exports = {
       explorationLevel: 0,
       duration: 60,
       alias: "Polynomials Overview",
-      pronunciation: "",
       knowledgeComponents: [{ relevance: 1, kc: "polynomials" }],
       type: "web-passive",
       uri:
@@ -280,7 +267,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540bbecb4e208da0f71e"),
       alias: "diodes-101-mcq-prerequisites-02",
-      pronunciation: "",
       duration: 60,
       explorationLevel: 0.25,
       knowledgeComponents: [
@@ -310,7 +296,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540bbecb4e208da0f721"),
       alias: "diodes-101-mcq-prerequisites-01",
-      pronunciation: "",
       duration: 60,
       explorationLevel: 0.25,
       knowledgeComponents: [
@@ -340,7 +325,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540bbecb4e208da0f723"),
       alias: "diodes-101-mcq-prerequisites-03",
-      pronunciation: "",
       duration: 60,
       explorationLevel: 0.25,
       knowledgeComponents: [
@@ -370,7 +354,6 @@ module.exports = {
     {
       _id: ObjectId("5bb6540bbecb4e208da0f725"),
       alias: "diodes-101-mcq-prerequisites-04",
-      pronunciation: "",
       duration: 60,
       explorationLevel: 0.25,
       knowledgeComponents: [
