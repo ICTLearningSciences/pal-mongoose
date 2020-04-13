@@ -59,4 +59,4 @@ workflows:
       - test-format
       - test-lint
       - test-types
-      # - test
+      - test
