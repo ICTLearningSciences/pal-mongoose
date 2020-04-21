@@ -1,6 +1,14 @@
 import * as mongoose from "mongoose";
 // TODO: make the pal-mongoose module export types, until then just fill in here as needed
 declare module "pal-mongoose" {
+  /**
+   * For app code that might loads models by name
+   * rather than explicit import,
+   * call this function first to make sure all the
+   * schemas have been loaded, e.g.
+   */
+  export function ensureAllSchemasLoaded(): void;
+
   export class AppVersions extends mongoose.Model {
     platform: string;
     appId: boolean;
