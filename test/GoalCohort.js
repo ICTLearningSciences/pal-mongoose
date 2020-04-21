@@ -15,7 +15,7 @@ describe("GoalCohort", function() {
   });
 
   describe("create team", function() {
-    it.only("throws an error if teamname is taken", async () => {
+    it("throws an error if teamname is taken", async () => {
       let expectedErr = null;
       try {
         const user = await User.findById(
