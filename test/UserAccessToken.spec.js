@@ -72,6 +72,25 @@ describe("UserAccessToken", function() {
       expect(token.user.id).to.eql(user._id);
     });
 
+    it("succeeds across multiple registrations (no unique-index problems)", async () => {
+      const token = await UserAccessToken.signUpWithCredentials(
+        "newuser1",
+        "asdf",
+        "someemail@domain.com"
+      );
+      expect(token).to.exist;
+      const user = await User.findOne({ name: "newuser1" });
+      expect(token.user.id).to.eql(user._id);
+      const token2 = await UserAccessToken.signUpWithCredentials(
+        "newuser2",
+        "asdf",
+        "someemail2@domain.com"
+      );
+      expect(token2).to.exist;
+      const user2 = await User.findOne({ name: "newuser2" });
+      expect(token2.user.id).to.eql(user2._id);
+    });
+
     it("updates lastLoginAt on success", async () => {
       const before = new Date();
       const token = await UserAccessToken.signUpWithCredentials(
