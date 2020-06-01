@@ -1534,6 +1534,13 @@ module.exports = {
     }
   ],
 
+  usercohorts: [
+    {
+      user: ObjectId("5dd88892c012321c14267156"),
+      cohort: "Study Cohort"
+    }
+  ],
+
   goalcohorts: [
     {
       _id: ObjectId("5d9dfde2becb4e208d59dc4d"),
@@ -1587,6 +1594,20 @@ module.exports = {
           id: ObjectId("5d9dfde2ec2b930013f84dce"),
           name: "WaveMakers",
           icon: "LogoTeamZephyr",
+          inviteCode: "rPT4wj_QT"
+        }
+      ]
+    },
+    {
+      goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
+      name: "Study Cohort",
+      membersMax: 30,
+      memberSlotsRemaning: 30,
+      members: [],
+      teams: [
+        {
+          name: "Minnows",
+          icon: "LogoTeamRazorfish",
           inviteCode: "rPT4wj_QT"
         }
       ]
