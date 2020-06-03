@@ -1546,7 +1546,7 @@ module.exports = {
       _id: ObjectId("5d9dfde2becb4e208d59dc4d"),
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
       membersMax: 30,
-      memberSlotsRemaning: 27,
+      memberSlotsRemaining: 27,
       members: [
         {
           teamIndex: 0,
@@ -1582,7 +1582,7 @@ module.exports = {
       _id: ObjectId("5d9dfde2becb4e278d59dc4d"),
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
       membersMax: 30,
-      memberSlotsRemaning: 30,
+      memberSlotsRemaining: 30,
       members: [],
       teams: [
         {
@@ -1601,8 +1601,9 @@ module.exports = {
     {
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
       name: "Study Cohort",
+      nameCanonical: "studycohort",
       membersMax: 30,
-      memberSlotsRemaning: 30,
+      memberSlotsRemaining: 30,
       members: [],
       teams: [
         {
@@ -1616,7 +1617,7 @@ module.exports = {
       _id: ObjectId("5df95a108878787d7708ec53"),
       goal: ObjectId("5bb6540cbecb4e208da0fb65"),
       membersMax: 10,
-      memberSlotsRemaning: 10,
+      memberSlotsRemaining: 10,
       members: [],
       teams: [
         {
@@ -1637,12 +1638,13 @@ module.exports = {
       _id: ObjectId("5df95a108878787d7708ec54"),
       goal: ObjectId("5bb6540cbecb4e208da0fb64"),
       membersMax: 30,
-      memberSlotsRemaning: 0,
+      memberSlotsRemaining: 0,
       members: [],
       teams: [
         {
           name: "Minnows",
-          icon: "LogoTeamRazorfish"
+          icon: "LogoTeamRazorfish",
+          inviteCode: "lTQ2Uf_LJ"
         },
         {
           name: "WaveMakers",
@@ -1669,9 +1671,10 @@ module.exports = {
     {
       _id: ObjectId("5df95a10887878ed7708ec54"),
       goal: ObjectId("5bb6540cbecb4e208da0fb64"),
-      name: 'Test Cohort',
+      name: "Test Cohort",
+      nameCanonical: "testcohort",
       membersMax: 30,
-      memberSlotsRemaning: 0,
+      memberSlotsRemaining: 0,
       members: [],
       teams: [
         {
@@ -1697,6 +1700,20 @@ module.exports = {
         {
           name: "ElectricForce",
           icon: "LogoTeamFirebolt"
+        }
+      ]
+    },
+    {
+      goal: ObjectId("5bb6540cdecb4e208da0fb64"),
+      name: " Unjoinable ",
+      nameCanonical: "unjoinable",
+      membersMax: 5,
+      memberSlotsRemaining: 5,
+      members: [],
+      teams: [
+        {
+          name: "RedSquad",
+          icon: "LogoTeamGladiator"
         }
       ]
     }
