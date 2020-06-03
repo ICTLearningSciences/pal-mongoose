@@ -569,6 +569,40 @@ module.exports = {
           icon: "LogoTeamFirebolt"
         }
       ]
+    },
+    {
+      _id: ObjectId("5df95a10887878ed7708ec54"),
+      goal: ObjectId("5bb6540cbecb4e208da0fb64"),
+      name: 'Test Cohort',
+      membersMax: 30,
+      memberSlotsRemaning: 0,
+      members: [],
+      teams: [
+        {
+          name: "Minnows",
+          icon: "LogoTeamRazorfish"
+        },
+        {
+          name: "WaveMakers",
+          icon: "LogoTeamZephyr"
+        },
+        {
+          name: "Hurricane",
+          icon: "LogoTeamSquall"
+        },
+        {
+          name: "ShipsAhoy",
+          icon: "LogoTeamLighthouse"
+        },
+        {
+          name: "RedSquad",
+          icon: "LogoTeamGladiator"
+        },
+        {
+          name: "ElectricForce",
+          icon: "LogoTeamFirebolt"
+        }
+      ]
     }
   ]
 };

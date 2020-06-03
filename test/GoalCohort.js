@@ -5,7 +5,6 @@ const Goal = require("Goal");
 const GoalCohort = require("GoalCohort");
 const User = require("User");
 const UserCohort = require("UserCohort");
-const { ObjectId } = mongoose.Types;
 
 describe("GoalCohort", function() {
   beforeEach(async () => {
@@ -133,6 +132,39 @@ describe("GoalCohort", function() {
       expect(cohort.teams[1].name).to.eql("Study Team");
     });
 
+    it("creates new team in named cohort with more than 6 teams", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      await UserCohort.setUserCohort(user, "Test Cohort");
+      const goal = await Goal.findOneByIdOrAlias("5bb6540cbecb4e208da0fb64");
+      let cohort = await GoalCohort.createTeam(user, goal, "Test Team");
+      expect(cohort).to.exist;
+      expect(cohort.goal).to.eql(goal._id);
+      expect(cohort.name).to.eql("Test Cohort");
+      expect(cohort.membersMax).to.eql(35);
+      expect(cohort.memberSlotsRemaning).to.eql(4);
+      expect(cohort.members).to.have.length(1);
+      expect(cohort.members[0].user).to.eql(user._id);
+      expect(cohort.members[0].teamIndex).to.eql(6);
+      expect(cohort.teams).to.have.length(7);
+      expect(cohort.teams[6].name).to.eql("Test Team");
+      expect(cohort.teams[6].icon).to.eql("LogoTeamRazorfish");
+
+      cohort = await GoalCohort.createTeam(user, goal, "Test Team 2");
+      expect(cohort).to.exist;
+      expect(cohort.goal).to.eql(goal._id);
+      expect(cohort.name).to.eql("Test Cohort");
+      expect(cohort.membersMax).to.eql(40);
+      expect(cohort.memberSlotsRemaning).to.eql(9);
+      expect(cohort.members).to.have.length(1);
+      expect(cohort.members[0].user).to.eql(user._id);
+      expect(cohort.members[0].teamIndex).to.eql(7);
+      expect(cohort.teams).to.have.length(8);
+      expect(cohort.teams[7].name).to.eql("Test Team 2");
+      expect(cohort.teams[7].icon).to.eql("LogoTeamZephyr");
+    });
+    
     it("joins team in named cohort with code", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
