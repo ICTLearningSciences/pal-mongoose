@@ -72,7 +72,7 @@ declare module "pal-mongoose" {
     name: string;
     members: GoalCohortMember[];
     membersMax: number;
-    memberSlotsRemaning: number;
+    memberSlotsRemaining: number;
     teams: GoalCohortTeam[];
 
     static createTeam: (
