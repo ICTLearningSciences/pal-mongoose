@@ -35,7 +35,7 @@ declare module "pal-mongoose" {
     name: string;
     nameCanonical: string;
 
-    static findForName: (name: string) => Cohort;
+    static findForName: (name: string) => Promise<Cohort>;
 
     static findOrCreateForName(name: string): Promise<Cohort>;
   }
@@ -259,7 +259,7 @@ declare module "pal-mongoose" {
     cohort: string;
     user: mongoose.Types.ObjectId;
 
-    static findForUser: (user: User) => UserCohort;
+    static findForUser: (user: User) => Promise<UserCohort>;
 
     static setUserCohort: (user: User, cohort: string) => Promise<void>;
   }

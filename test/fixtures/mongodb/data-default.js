@@ -1625,7 +1625,7 @@ module.exports = {
         {
           name: "Minnows",
           icon: "LogoTeamRazorfish",
-          inviteCode: "rPT4wj_QT"
+          inviteCode: "lUYoW3tLo"
         }
       ]
     },

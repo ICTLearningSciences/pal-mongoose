@@ -16,8 +16,8 @@ describe("GoalCohort", function() {
     await mongoUnit.drop();
   });
 
-  describe("join or create cohort", function() {
-    it("joins a named cohort, if assigned user cohort", async () => {
+  describe("joinOrCreateCohort", function() {
+    it("joins a named cohort, if assigned a user cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
@@ -38,7 +38,7 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams[0].icon).to.eql("LogoTeamRazorfish");
     });
 
-    it("joins an unnamed cohort, if not assigned user cohort", async () => {
+    it("joins an unnamed cohort, if not assigned a user cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
@@ -48,7 +48,7 @@ describe("GoalCohort", function() {
       expect(goalCohort.cohort).to.not.exist;
     });
 
-    it("joins a named cohort and leaves old cohort, if in a different cohort", async () => {
+    it("joins a named cohort and leaves old cohort, if assigned a user cohort but in a different cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267156")
       );
@@ -77,7 +77,7 @@ describe("GoalCohort", function() {
       expect(oldCohort.memberSlotsRemaining).to.eql(28);
     });
 
-    it("creates a new named cohort, if does not exist", async () => {
+    it("creates a new named cohort, if assigned a user cohort but does not exist", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
@@ -102,7 +102,7 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams[5].name).to.eql("ElectricForce");
     });
 
-    it("creates and joins a new team in a named cohort, if no available space", async () => {
+    it("creates and joins a new team in a named cohort, if assigned a user cohort but no available space", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
@@ -128,7 +128,7 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams[6].name).to.not.eql("");
     });
 
-    it("can create more than one unnamed cohort in same goal", async () => {
+    it("can create more than one unnamed cohort in the same goal", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
@@ -159,7 +159,7 @@ describe("GoalCohort", function() {
     });
   });
 
-  describe("create team", function() {
+  describe("createTeam", function() {
     it("throws an error if teamname is taken", async () => {
       let expectedErr = null;
       try {
@@ -234,7 +234,7 @@ describe("GoalCohort", function() {
     });
   });
 
-  describe("join team with invite code", function() {
+  describe("joinCohort", function() {
     it("joins team in named cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
@@ -242,7 +242,7 @@ describe("GoalCohort", function() {
       await UserCohort.setUserCohort(user, "Study Cohort");
       const cohort = await Cohort.findForName("Study Cohort");
       const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-      const goalCohort = await GoalCohort.joinCohort(user, goal, "rPT4wj_QT");
+      const goalCohort = await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
       expect(goalCohort).to.exist;
       expect(goalCohort.goal).to.eql(goal._id);
       expect(goalCohort.cohort).to.eql(cohort._id);
@@ -254,6 +254,24 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams).to.have.length(1);
       expect(goalCohort.teams[0].name).to.eql("Minnows");
       expect(goalCohort.teams[0].icon).to.eql("LogoTeamRazorfish");
+    });
+
+    it("fails with error if user is in different cohort than the team", async () => {
+      let expectedErr = null;
+      try {
+        const user = await User.findById(
+          mongoose.Types.ObjectId("5dd88892c012321c14267155")
+        );
+        const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+        await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.equal(
+        "The team is in a different cohort than the one you are assigned to"
+      );
+      expect(expectedErr.status).to.equal(409);
     });
 
     it("fails to join team, if no available space", async () => {
@@ -269,13 +287,13 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "The team cannot accept any more members"
+        "The cohort cannot accept any more members"
       );
       expect(expectedErr.status).to.equal(409);
     });
   });
 
-  describe("set user cohort", function() {
+  describe("UserCohort.setUserCohort", function() {
     it("leaves old cohorts", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
