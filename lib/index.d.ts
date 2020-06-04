@@ -31,6 +31,15 @@ declare module "pal-mongoose" {
     static findSuggested: () => Promise<Career>;
   }
 
+  export class Cohort extends mongoose.Model {
+    name: string;
+    nameCanonical: string;
+
+    static findForName: (name: string) => Cohort;
+
+    static findOrCreateForName(name: string): Promise<Cohort>;
+  }
+
   export class DemoUser extends mongoose.Model {
     goal: mongoose.Types.ObjectId;
     focus: mongoose.Types.ObjectId;
@@ -246,6 +255,15 @@ declare module "pal-mongoose" {
     user: mongoose.Types.ObjectId;
   }
 
+  export class UserCohort extends mongoose.Model {
+    cohort: string;
+    user: mongoose.Types.ObjectId;
+
+    static findForUser: (user: User) => UserCohort;
+
+    static setUserCohort: (user: User, cohort: string) => Promise<void>;
+  }
+
   export class UserGoal extends mongoose.Model {
     activeFocus: string;
     activeGoal: mongoose.Types.ObjectId;
@@ -259,16 +277,6 @@ declare module "pal-mongoose" {
       focus?: string
     ) => Promise<void>;
   }
-
-  export class UserCohort extends mongoose.Model {
-    cohort: string;
-    user: mongoose.Types.ObjectId;
-
-    static findForUser: (user: User) => UserCohort;
-
-    static setUserCohort: (user: User, cohort: string) => Promise<void>;
-  }
-
   export class UserKnowledgeComponent extends mongoose.Model {
     asymptote: number;
     avgTimeDecay: number;

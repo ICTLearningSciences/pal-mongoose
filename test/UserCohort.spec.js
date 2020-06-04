@@ -5,6 +5,7 @@ const User = require("User");
 const UserCohort = require("UserCohort");
 const Goal = require("Goal");
 const GoalCohort = require("GoalCohort");
+const Cohort = require("Cohort");
 
 describe("UserCohort", function() {
   beforeEach(async () => {
@@ -25,7 +26,9 @@ describe("UserCohort", function() {
       const userCohort = await UserCohort.findForUser(user);
       expect(userCohort).to.exist;
       expect(userCohort).to.be.instanceof(UserCohort);
-      expect(userCohort.cohort).to.eql("Study Cohort");
+      expect(userCohort.cohort).to.eql(
+        mongoose.Types.ObjectId("5ed82fb2a869c32825c74474")
+      );
     });
 
     it("gets the user cohort", async () => {
@@ -35,7 +38,9 @@ describe("UserCohort", function() {
       const userCohort = await UserCohort.findForUser(user);
       expect(userCohort).to.exist;
       expect(userCohort).to.be.instanceof(UserCohort);
-      expect(userCohort.cohort).to.eql("Study Cohort");
+      expect(userCohort.cohort).to.eql(
+        mongoose.Types.ObjectId("5ed82fb2a869c32825c74474")
+      );
     });
 
     it("returns the new user cohort", async () => {
@@ -46,9 +51,10 @@ describe("UserCohort", function() {
         user,
         "New Study Cohort"
       );
+      const cohort = await Cohort.findOrCreateForName("New Study Cohort");
       expect(userCohort).to.exist;
       expect(userCohort).to.be.instanceof(UserCohort);
-      expect(userCohort.cohort).to.eql("New Study Cohort");
+      expect(userCohort.cohort).to.eql(cohort.id);
     });
 
     it("leaves old cohorts when setting new user cohort", async () => {
