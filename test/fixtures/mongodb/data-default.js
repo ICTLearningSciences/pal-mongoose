@@ -48,6 +48,24 @@ module.exports = {
       updatedAt: "2020-01-15T20:17:48.765Z"
     }
   ],
+
+  cohorts: [
+    {
+      _id: ObjectId("5ed86dbe14f1e930dcd03ec9"),
+      name: "Test Cohort",
+      nameCanonical: "testcohort"
+    },
+    {
+      name: " Unjoinable ",
+      nameCanonical: "unjoinable"
+    },
+    {
+      _id: ObjectId("5ed82fb2a869c32825c74474"),
+      name: "Study Cohort",
+      nameCanonical: "studycohort"
+    }
+  ],
+
   goals: [
     {
       _id: ObjectId("5b5a2cd69b1fafcf999d957e"),
@@ -455,7 +473,7 @@ module.exports = {
   usercohorts: [
     {
       user: ObjectId("5dd88892c012321c14267156"),
-      cohort: "Study Cohort"
+      cohort: ObjectId("5ed82fb2a869c32825c74474")
     }
   ],
 
@@ -518,8 +536,7 @@ module.exports = {
     },
     {
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
-      name: "Study Cohort",
-      nameCanonical: "studycohort",
+      cohort: ObjectId("5ed82fb2a869c32825c74474"),
       membersMax: 30,
       memberSlotsRemaining: 30,
       members: [],
@@ -589,8 +606,7 @@ module.exports = {
     {
       _id: ObjectId("5df95a10887878ed7708ec54"),
       goal: ObjectId("5bb6540cbecb4e208da0fb64"),
-      name: "Test Cohort",
-      nameCanonical: "testcohort",
+      cohort: ObjectId("5ed86dbe14f1e930dcd03ec9"),
       membersMax: 30,
       memberSlotsRemaining: 0,
       members: [],
