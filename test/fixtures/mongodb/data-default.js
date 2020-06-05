@@ -1554,7 +1554,8 @@ module.exports = {
   usercohorts: [
     {
       user: ObjectId("5dd88892c012321c14267156"),
-      cohort: ObjectId("5ed82fb2a869c32825c74474")
+      cohort: ObjectId("5ed82fb2a869c32825c74474"),
+      updatedAt: "1999-06-05T06:21:34.411Z"
     }
   ],
 
