@@ -135,7 +135,7 @@ describe("GoalCohort", function() {
       const goal = await Goal.findOneByIdOrAlias("5bb6540cbecb4e208da0fb64");
       const cohort = await GoalCohort.joinOrCreateCohort(user, goal);
       expect(cohort).to.exist;
-      expect(cohort.cohort).to.eql(null);
+      expect(cohort.cohort).to.not.exist;
       expect(cohort.id).to.not.eql("5df95a108878787d7708ec54");
     });
 
@@ -256,12 +256,61 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams[0].icon).to.eql("LogoTeamRazorfish");
     });
 
-    it("fails with error if user is in different cohort than the team", async () => {
+    it("joins team in un-named cohort", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+      const goalCohort = await GoalCohort.joinCohort(user, goal, "lTQ2Uf_LJ");
+      expect(goalCohort).to.exist;
+      expect(goalCohort.goal).to.eql(goal._id);
+      expect(goalCohort.cohort).to.not.exist;
+    });
+
+    it("fails if team is in named cohort and user is not", async () => {
       let expectedErr = null;
       try {
         const user = await User.findById(
           mongoose.Types.ObjectId("5dd88892c012321c14267155")
         );
+        const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+        await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.equal(
+        "The team is in a different cohort than the one you are assigned to"
+      );
+      expect(expectedErr.status).to.equal(409);
+    });
+
+    it("fails if user is in named cohort and team is not", async () => {
+      let expectedErr = null;
+      try {
+        const user = await User.findById(
+          mongoose.Types.ObjectId("5dd88892c012321c14267155")
+        );
+        await UserCohort.setUserCohort(user, "Study Cohort");
+        const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+        await GoalCohort.joinCohort(user, goal, "rPT4wj_QT");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.equal(
+        "The team is in a different cohort than the one you are assigned to"
+      );
+      expect(expectedErr.status).to.equal(409);
+    });
+
+    it("fails if user and team are in different named cohorts", async () => {
+      let expectedErr = null;
+      try {
+        const user = await User.findById(
+          mongoose.Types.ObjectId("5dd88892c012321c14267155")
+        );
+        await UserCohort.setUserCohort(user, "New Study Cohort");
         const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
         await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
       } catch (err) {
@@ -290,18 +339,6 @@ describe("GoalCohort", function() {
         "The cohort cannot accept any more members"
       );
       expect(expectedErr.status).to.equal(409);
-    });
-  });
-
-  describe("UserCohort.setUserCohort", function() {
-    it("leaves old cohorts", async () => {
-      const user = await User.findById(
-        mongoose.Types.ObjectId("5dd88892c012321c14267155")
-      );
-      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-      expect(await GoalCohort.findUserCohort(user, goal)).to.exist;
-      await UserCohort.setUserCohort(user, "Study Cohort");
-      expect(await GoalCohort.findUserCohort(user, goal)).to.not.exist;
     });
   });
 });
