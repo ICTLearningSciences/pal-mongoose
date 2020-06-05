@@ -17,6 +17,33 @@ describe("GoalCohort", function() {
   });
 
   describe("joinOrCreateCohort", function() {
+    it("returns current named cohort without updating", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      await UserCohort.setUserCohort(user, "Study Cohort");
+      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+      const curCohort = await GoalCohort.joinOrCreateCohort(user, goal);
+      expect(curCohort).to.exist;
+      const goalCohort = await GoalCohort.joinOrCreateCohort(user, goal);
+      expect(goalCohort).to.exist;
+      expect(goalCohort._id).to.eql(curCohort._id);
+      expect(goalCohort.updatedAt).to.eql(curCohort.updatedAt);
+    });
+
+    it("returns current unnamed cohort without updating", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+      const curCohort = await GoalCohort.findUserCohort(user, goal);
+      expect(curCohort).to.exist;
+      const goalCohort = await GoalCohort.joinOrCreateCohort(user, goal);
+      expect(goalCohort).to.exist;
+      expect(goalCohort._id).to.eql(curCohort._id);
+      expect(goalCohort.updatedAt).to.eql(curCohort.updatedAt);
+    });
+
     it("joins a named cohort, if assigned a user cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
