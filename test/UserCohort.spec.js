@@ -57,7 +57,7 @@ describe("UserCohort", function() {
       expect(userCohort.cohort).to.eql(cohort.id);
     });
 
-    it("leaves old cohorts when setting new user cohort", async () => {
+    it("removes user from previously joined cohorts that do not belong to new user cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267156")
       );
