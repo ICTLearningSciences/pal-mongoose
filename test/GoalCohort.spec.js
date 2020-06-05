@@ -234,7 +234,7 @@ describe("GoalCohort", function() {
     });
   });
 
-  describe("joinCohort", function() {
+  describe("joinWithInvite", function() {
     it("joins team in named cohort", async () => {
       const user = await User.findById(
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
@@ -242,7 +242,11 @@ describe("GoalCohort", function() {
       await UserCohort.setUserCohort(user, "Study Cohort");
       const cohort = await Cohort.findForName("Study Cohort");
       const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-      const goalCohort = await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
+      const goalCohort = await GoalCohort.joinWithInvite(
+        user,
+        goal,
+        "lUYoW3tLo"
+      );
       expect(goalCohort).to.exist;
       expect(goalCohort.goal).to.eql(goal._id);
       expect(goalCohort.cohort).to.eql(cohort._id);
@@ -261,7 +265,11 @@ describe("GoalCohort", function() {
         mongoose.Types.ObjectId("5dd88892c012321c14267155")
       );
       const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-      const goalCohort = await GoalCohort.joinCohort(user, goal, "lTQ2Uf_LJ");
+      const goalCohort = await GoalCohort.joinWithInvite(
+        user,
+        goal,
+        "lTQ2Uf_LJ"
+      );
       expect(goalCohort).to.exist;
       expect(goalCohort.goal).to.eql(goal._id);
       expect(goalCohort.cohort).to.not.exist;
@@ -274,7 +282,7 @@ describe("GoalCohort", function() {
           mongoose.Types.ObjectId("5dd88892c012321c14267155")
         );
         const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-        await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
+        await GoalCohort.joinWithInvite(user, goal, "lUYoW3tLo");
       } catch (err) {
         expectedErr = err;
       }
@@ -293,7 +301,7 @@ describe("GoalCohort", function() {
         );
         await UserCohort.setUserCohort(user, "Study Cohort");
         const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-        await GoalCohort.joinCohort(user, goal, "rPT4wj_QT");
+        await GoalCohort.joinWithInvite(user, goal, "rPT4wj_QT");
       } catch (err) {
         expectedErr = err;
       }
@@ -312,7 +320,7 @@ describe("GoalCohort", function() {
         );
         await UserCohort.setUserCohort(user, "New Study Cohort");
         const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-        await GoalCohort.joinCohort(user, goal, "lUYoW3tLo");
+        await GoalCohort.joinWithInvite(user, goal, "lUYoW3tLo");
       } catch (err) {
         expectedErr = err;
       }
@@ -330,7 +338,7 @@ describe("GoalCohort", function() {
           mongoose.Types.ObjectId("5dd88892c012321c14267155")
         );
         const goal = await Goal.findOneByIdOrAlias("5bb6540cbecb4e208da0fb64");
-        await GoalCohort.joinCohort(user, goal, "lTQ2Uf_LJ");
+        await GoalCohort.joinWithInvite(user, goal, "lTQ2Uf_LJ");
       } catch (err) {
         expectedErr = err;
       }
