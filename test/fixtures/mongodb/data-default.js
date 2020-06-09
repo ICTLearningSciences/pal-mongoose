@@ -10,7 +10,7 @@ module.exports = {
       name: "E2 Fire Controlman",
       ord: 1,
       suggestedGoals: [
-        ObjectId("5bb6540cbecb4e208da0fb63"),
+        ObjectId("5b5a2cd69b1fafcf999d957e"),
         ObjectId("5bb6540cbecb4e208da0fb65"),
         ObjectId("5bb6540cbecb4e208da0fb64")
       ],
@@ -49,9 +49,27 @@ module.exports = {
     }
   ],
 
+  cohorts: [
+    {
+      _id: ObjectId("5ed86dbe14f1e930dcd03ec9"),
+      name: "Test Cohort",
+      nameCanonical: "testcohort"
+    },
+    {
+      _id: ObjectId("5edaa35f7b3a751d291f9932"),
+      name: " Unjoinable ",
+      nameCanonical: "unjoinable"
+    },
+    {
+      _id: ObjectId("5ed82fb2a869c32825c74474"),
+      name: "Study Cohort",
+      nameCanonical: "studycohort"
+    }
+  ],
+
   goals: [
     {
-      _id: ObjectId("5bb6540cbecb4e208da0fb63"),
+      _id: ObjectId("5b5a2cd69b1fafcf999d957e"),
       alias: "advancement-test-fc-e3",
       createdAt: new Date("2018-10-04T17:55:24.839Z"),
       desc:
@@ -176,6 +194,21 @@ module.exports = {
       ],
       name: "Testing & Evaluation Training",
       updatedAt: new Date("2020-04-29T21:08:07.453Z")
+    },
+
+    {
+      _id: ObjectId("5bb6540cdecb4e208da0fb64"),
+      name: "Test",
+      alias: "test",
+      desc: "Test",
+      focusList: [
+        {
+          name: "Test",
+          desc: "Test",
+          _id: "test",
+          topics: ["sleep-habits-101"]
+        }
+      ]
     }
   ],
 
@@ -1534,12 +1567,20 @@ module.exports = {
     }
   ],
 
+  usercohorts: [
+    {
+      user: ObjectId("5dd88892c012321c14267156"),
+      cohort: ObjectId("5ed82fb2a869c32825c74474"),
+      updatedAt: "1999-06-05T06:21:34.411Z"
+    }
+  ],
+
   goalcohorts: [
     {
       _id: ObjectId("5d9dfde2becb4e208d59dc4d"),
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
       membersMax: 30,
-      memberSlotsRemaning: 27,
+      memberSlotsRemaining: 27,
       members: [
         {
           teamIndex: 0,
@@ -1575,7 +1616,7 @@ module.exports = {
       _id: ObjectId("5d9dfde2becb4e278d59dc4d"),
       goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
       membersMax: 30,
-      memberSlotsRemaning: 30,
+      memberSlotsRemaining: 30,
       members: [],
       teams: [
         {
@@ -1592,10 +1633,24 @@ module.exports = {
       ]
     },
     {
+      goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
+      cohort: ObjectId("5ed82fb2a869c32825c74474"),
+      membersMax: 30,
+      memberSlotsRemaining: 30,
+      members: [],
+      teams: [
+        {
+          name: "Minnows",
+          icon: "LogoTeamRazorfish",
+          inviteCode: "lUYoW3tLo"
+        }
+      ]
+    },
+    {
       _id: ObjectId("5df95a108878787d7708ec53"),
       goal: ObjectId("5bb6540cbecb4e208da0fb65"),
       membersMax: 10,
-      memberSlotsRemaning: 10,
+      memberSlotsRemaining: 10,
       members: [],
       teams: [
         {
@@ -1616,7 +1671,42 @@ module.exports = {
       _id: ObjectId("5df95a108878787d7708ec54"),
       goal: ObjectId("5bb6540cbecb4e208da0fb64"),
       membersMax: 30,
-      memberSlotsRemaning: 0,
+      memberSlotsRemaining: 0,
+      members: [],
+      teams: [
+        {
+          name: "Minnows",
+          icon: "LogoTeamRazorfish",
+          inviteCode: "lTQ2Uf_LJ"
+        },
+        {
+          name: "WaveMakers",
+          icon: "LogoTeamZephyr"
+        },
+        {
+          name: "Hurricane",
+          icon: "LogoTeamSquall"
+        },
+        {
+          name: "ShipsAhoy",
+          icon: "LogoTeamLighthouse"
+        },
+        {
+          name: "RedSquad",
+          icon: "LogoTeamGladiator"
+        },
+        {
+          name: "ElectricForce",
+          icon: "LogoTeamFirebolt"
+        }
+      ]
+    },
+    {
+      _id: ObjectId("5df95a10887878ed7708ec54"),
+      goal: ObjectId("5bb6540cbecb4e208da0fb64"),
+      cohort: ObjectId("5ed86dbe14f1e930dcd03ec9"),
+      membersMax: 30,
+      memberSlotsRemaining: 0,
       members: [],
       teams: [
         {
@@ -1642,6 +1732,19 @@ module.exports = {
         {
           name: "ElectricForce",
           icon: "LogoTeamFirebolt"
+        }
+      ]
+    },
+    {
+      goal: ObjectId("5bb6540cdecb4e208da0fb64"),
+      cohort: ObjectId("5edaa35f7b3a751d291f9932"),
+      membersMax: 5,
+      memberSlotsRemaining: 1,
+      members: [],
+      teams: [
+        {
+          name: "RedSquad",
+          icon: "LogoTeamGladiator"
         }
       ]
     }

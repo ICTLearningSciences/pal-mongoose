@@ -31,6 +31,15 @@ declare module "pal-mongoose" {
     static findSuggested: () => Promise<Career>;
   }
 
+  export class Cohort extends mongoose.Model {
+    name: string;
+    nameCanonical: string;
+
+    static findForName: (name: string) => Promise<Cohort>;
+
+    static findOrCreateForName(name: string): Promise<Cohort>;
+  }
+
   export class DemoUser extends mongoose.Model {
     goal: mongoose.Types.ObjectId;
     focus: mongoose.Types.ObjectId;
@@ -69,9 +78,10 @@ declare module "pal-mongoose" {
 
   export class GoalCohort extends mongoose.Model {
     goal: mongoose.Types.ObjectId;
+    name: string;
     members: GoalCohortMember[];
     membersMax: number;
-    memberSlotsRemaning: number;
+    memberSlotsRemaining: number;
     teams: GoalCohortTeam[];
 
     static createTeam: (
@@ -82,19 +92,21 @@ declare module "pal-mongoose" {
 
     static findUserCohort: (user: User, goal: Goal) => Promise<GoalCohort>;
 
+    static findCohortByName: (name: string, goal: Goal) => Promise<GoalCohort>;
+
     static invite: (
       user: User,
       goal: Goal,
       teamName: string
     ) => Promise<GoalCohort>;
 
-    static joinCohort: (
+    static joinWithInvite: (
       user: User,
       goal: Goal,
       code: string
     ) => Promise<GoalCohort>;
 
-    static joinOrCreateCohort: (
+    static joinOrCreate: (
       user: User,
       goal: Goal,
       opts: {
@@ -243,6 +255,15 @@ declare module "pal-mongoose" {
     user: mongoose.Types.ObjectId;
   }
 
+  export class UserCohort extends mongoose.Model {
+    cohort: string;
+    user: mongoose.Types.ObjectId;
+
+    static findForUser: (user: User) => Promise<UserCohort>;
+
+    static setUserCohort: (user: User, cohort: string) => Promise<void>;
+  }
+
   export class UserGoal extends mongoose.Model {
     activeFocus: string;
     activeGoal: mongoose.Types.ObjectId;
@@ -256,7 +277,6 @@ declare module "pal-mongoose" {
       focus?: string
     ) => Promise<void>;
   }
-
   export class UserKnowledgeComponent extends mongoose.Model {
     asymptote: number;
     avgTimeDecay: number;
