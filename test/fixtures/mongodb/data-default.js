@@ -10,7 +10,7 @@ module.exports = {
       name: "E2 Fire Controlman",
       ord: 1,
       suggestedGoals: [
-        ObjectId("5bb6540cbecb4e208da0fb63"),
+        ObjectId("5b5a2cd69b1fafcf999d957e"),
         ObjectId("5bb6540cbecb4e208da0fb65"),
         ObjectId("5bb6540cbecb4e208da0fb64")
       ],
@@ -69,7 +69,7 @@ module.exports = {
 
   goals: [
     {
-      _id: ObjectId("5bb6540cbecb4e208da0fb63"),
+      _id: ObjectId("5b5a2cd69b1fafcf999d957e"),
       alias: "advancement-test-fc-e3",
       createdAt: new Date("2018-10-04T17:55:24.839Z"),
       desc:
@@ -194,6 +194,21 @@ module.exports = {
       ],
       name: "Testing & Evaluation Training",
       updatedAt: new Date("2020-04-29T21:08:07.453Z")
+    },
+
+    {
+      _id: ObjectId("5bb6540cdecb4e208da0fb64"),
+      name: "Test",
+      alias: "test",
+      desc: "Test",
+      focusList: [
+        {
+          name: "Test",
+          desc: "Test",
+          _id: "test",
+          topics: ["sleep-habits-101"]
+        }
+      ]
     }
   ],
 
