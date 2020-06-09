@@ -91,4 +91,19 @@ describe("sort users onto cohort", () => {
     expectUserTeamIndex(usersAfter, 8, 0);
     expectUserTeamIndex(usersAfter, 9, 1);
   });
+
+  it("with more than default (6) number of teams", () => {
+    const usersBefore = genUsers(40);
+    const usersAfter = sortUsersOntoTeams(usersBefore, 8);
+
+    for (let i = 0; i < teamAssignmentsTable.length; i++) {
+      expectUserTeamIndex(usersAfter, i, teamAssignmentsTable[i]);
+    }
+    for (let i = 30; i < 35; i++) {
+      expectUserTeamIndex(usersAfter, i, 6);
+    }
+    for (let i = 35; i < 40; i++) {
+      expectUserTeamIndex(usersAfter, i, 7);
+    }
+  });
 });
