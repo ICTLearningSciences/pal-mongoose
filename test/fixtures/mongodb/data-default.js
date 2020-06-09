@@ -56,6 +56,7 @@ module.exports = {
       nameCanonical: "testcohort"
     },
     {
+      _id: ObjectId("5edaa35f7b3a751d291f9932"),
       name: " Unjoinable ",
       nameCanonical: "unjoinable"
     },
@@ -640,10 +641,9 @@ module.exports = {
     },
     {
       goal: ObjectId("5bb6540cdecb4e208da0fb64"),
-      name: " Unjoinable ",
-      nameCanonical: "unjoinable",
+      cohort: ObjectId("5edaa35f7b3a751d291f9932"),
       membersMax: 5,
-      memberSlotsRemaining: 5,
+      memberSlotsRemaining: 1,
       members: [],
       teams: [
         {
