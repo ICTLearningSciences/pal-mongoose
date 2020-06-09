@@ -106,7 +106,7 @@ declare module "pal-mongoose" {
       code: string
     ) => Promise<GoalCohort>;
 
-    static joinOrCreateCohort: (
+    static joinOrCreate: (
       user: User,
       goal: Goal,
       opts: {
