@@ -78,7 +78,7 @@ declare module "pal-mongoose" {
 
   export class GoalCohort extends mongoose.Model {
     goal: mongoose.Types.ObjectId;
-    name: string;
+    cohort: mongoose.Types.ObjectId;
     members: GoalCohortMember[];
     membersMax: number;
     memberSlotsRemaining: number;
@@ -256,7 +256,7 @@ declare module "pal-mongoose" {
   }
 
   export class UserCohort extends mongoose.Model {
-    cohort: string;
+    cohort: mongoose.Types.ObjectId;
     user: mongoose.Types.ObjectId;
 
     static findForUser: (user: User) => Promise<UserCohort>;
