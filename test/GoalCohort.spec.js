@@ -379,6 +379,31 @@ describe("GoalCohort", function() {
       expect(goalCohort.cohort).to.not.exist;
     });
 
+    it("joins team in named cohort, with duplicate invite codes", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      await UserCohort.setUserCohort(user, "Test Cohort");
+      const cohort = await Cohort.findForName("Test Cohort");
+      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+      const goalCohort = await GoalCohort.joinWithInvite(
+        user,
+        goal,
+        "lTQ2Uf_LJ"
+      );
+      expect(goalCohort).to.exist;
+      expect(goalCohort.goal).to.eql(goal._id);
+      expect(goalCohort.cohort).to.eql(cohort._id);
+      expect(goalCohort.membersMax).to.eql(30);
+      expect(goalCohort.memberSlotsRemaining).to.eql(29);
+      expect(goalCohort.members).to.have.length(1);
+      expect(goalCohort.members[0].user).to.eql(user._id);
+      expect(goalCohort.members[0].teamIndex).to.eql(0);
+      expect(goalCohort.teams).to.have.length(1);
+      expect(goalCohort.teams[0].name).to.eql("Minnows");
+      expect(goalCohort.teams[0].icon).to.eql("LogoTeamRazorfish");
+    });
+
     it("fails if team is in named cohort and user is not", async () => {
       let expectedErr = null;
       try {
@@ -451,6 +476,24 @@ describe("GoalCohort", function() {
         "The cohort cannot accept any more members"
       );
       expect(expectedErr.status).to.equal(409);
+    });
+
+    it("fails to join team, if no matching invite code found", async () => {
+      let expectedErr = null;
+      try {
+        const user = await User.findById(
+          mongoose.Types.ObjectId("5dd88892c012321c14267155")
+        );
+        const goal = await Goal.findOneByIdOrAlias("5bb6540cbecb4e208da0fb64");
+        await GoalCohort.joinWithInvite(user, goal, "dMQ5Vz_PH");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.equal(
+        "failed to find team with invite code"
+      );
+      expect(expectedErr.status).to.equal(404);
     });
   });
 

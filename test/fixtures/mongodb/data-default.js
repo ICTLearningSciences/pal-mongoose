@@ -1647,6 +1647,20 @@ module.exports = {
       ]
     },
     {
+      goal: ObjectId("5b5a2cd69b1fafcf999d957e"),
+      cohort: ObjectId("5ed86dbe14f1e930dcd03ec9"),
+      membersMax: 30,
+      memberSlotsRemaining: 30,
+      members: [],
+      teams: [
+        {
+          name: "Minnows",
+          icon: "LogoTeamRazorfish",
+          inviteCode: "lTQ2Uf_LJ"
+        }
+      ]
+    },
+    {
       _id: ObjectId("5df95a108878787d7708ec53"),
       goal: ObjectId("5bb6540cbecb4e208da0fb65"),
       membersMax: 10,
