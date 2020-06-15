@@ -301,6 +301,8 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams).to.have.length(2);
       expect(goalCohort.teams[0].name).to.eql("Minnows");
       expect(goalCohort.teams[1].name).to.eql("Study Team");
+      expect(goalCohort.teams[1].icon).to.exist;
+      expect(goalCohort.teams[1].inviteCode).to.exist;
     });
 
     it("creates new team in named cohort that has more than 6 teams and 0 slots remaining", async () => {
@@ -377,31 +379,6 @@ describe("GoalCohort", function() {
       expect(goalCohort).to.exist;
       expect(goalCohort.goal).to.eql(goal._id);
       expect(goalCohort.cohort).to.not.exist;
-    });
-
-    it("joins team in named cohort, with duplicate invite codes", async () => {
-      const user = await User.findById(
-        mongoose.Types.ObjectId("5dd88892c012321c14267155")
-      );
-      await UserCohort.setUserCohort(user, "Test Cohort");
-      const cohort = await Cohort.findForName("Test Cohort");
-      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
-      const goalCohort = await GoalCohort.joinWithInvite(
-        user,
-        goal,
-        "lTQ2Uf_LJ"
-      );
-      expect(goalCohort).to.exist;
-      expect(goalCohort.goal).to.eql(goal._id);
-      expect(goalCohort.cohort).to.eql(cohort._id);
-      expect(goalCohort.membersMax).to.eql(30);
-      expect(goalCohort.memberSlotsRemaining).to.eql(29);
-      expect(goalCohort.members).to.have.length(1);
-      expect(goalCohort.members[0].user).to.eql(user._id);
-      expect(goalCohort.members[0].teamIndex).to.eql(0);
-      expect(goalCohort.teams).to.have.length(1);
-      expect(goalCohort.teams[0].name).to.eql("Minnows");
-      expect(goalCohort.teams[0].icon).to.eql("LogoTeamRazorfish");
     });
 
     it("fails if team is in named cohort and user is not", async () => {
@@ -588,6 +565,51 @@ describe("GoalCohort", function() {
       expect(goalCohort.members[3].teamIndex).to.eql(1);
       expect(goalCohort.members[4].teamIndex).to.eql(2);
       expect(goalCohort.teams).to.have.length(7);
+    });
+  });
+
+  describe("invite", function() {
+    it("generates invite codes", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      await UserCohort.setUserCohort(user, "Test Cohort");
+      const goal = await Goal.findOneByIdOrAlias("5bb6540cbecb4e208da0fb64");
+      let goalCohort = await GoalCohort.joinOrCreate(user, goal);
+
+      expect(goalCohort.teams.length).to.eql(7);
+      expect(goalCohort.teams[0].inviteCode).to.not.exist;
+      expect(goalCohort.teams[1].inviteCode).to.not.exist;
+      expect(goalCohort.teams[2].inviteCode).to.not.exist;
+      expect(goalCohort.teams[3].inviteCode).to.not.exist;
+      expect(goalCohort.teams[4].inviteCode).to.not.exist;
+      expect(goalCohort.teams[5].inviteCode).to.not.exist;
+
+      goalCohort = await GoalCohort.invite(user, goal);
+      expect(goalCohort.teams[0].inviteCode).to.exist;
+      expect(goalCohort.teams[1].inviteCode).to.exist;
+      expect(goalCohort.teams[2].inviteCode).to.exist;
+      expect(goalCohort.teams[3].inviteCode).to.exist;
+      expect(goalCohort.teams[4].inviteCode).to.exist;
+      expect(goalCohort.teams[5].inviteCode).to.exist;
+      expect(goalCohort.teams[6].inviteCode).to.exist;
+    });
+
+    it("generates invite codes when creating a new cohort", async () => {
+      const user = await User.findById(
+        mongoose.Types.ObjectId("5dd88892c012321c14267155")
+      );
+      await UserCohort.setUserCohort(user, "Brand New Cohort");
+      const goal = await Goal.findOneByIdOrAlias("5b5a2cd69b1fafcf999d957e");
+      let goalCohort = await GoalCohort.joinOrCreate(user, goal);
+
+      expect(goalCohort.teams.length).to.eql(6);
+      expect(goalCohort.teams[0].inviteCode).to.exist;
+      expect(goalCohort.teams[1].inviteCode).to.exist;
+      expect(goalCohort.teams[2].inviteCode).to.exist;
+      expect(goalCohort.teams[3].inviteCode).to.exist;
+      expect(goalCohort.teams[4].inviteCode).to.exist;
+      expect(goalCohort.teams[5].inviteCode).to.exist;
     });
   });
 });
