@@ -110,4 +110,34 @@ describe("User", function() {
       expect(available).to.eql(false);
     });
   });
+
+  describe("paginate", function() {
+    it("gets items", async () => {
+      const results = await User.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 99
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(4);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("gets 1 item", async () => {
+      const results = await User.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(true);
+    });
+  });
 });

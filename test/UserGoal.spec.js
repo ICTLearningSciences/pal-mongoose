@@ -43,4 +43,20 @@ describe("UserGoal", function() {
       expect(userGoal.activeGoal).to.eql(goal._id);
     });
   });
+
+  describe("paginate", function() {
+    it("gets items", async () => {
+      const results = await UserGoal.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 99
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(0);
+      expect(results.hasMore).to.eql(false);
+    });
+  });
 });

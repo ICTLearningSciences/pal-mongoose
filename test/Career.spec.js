@@ -39,4 +39,46 @@ describe("Career", function() {
       expect(item).to.have.property("name", "E2 Fire Controlman");
     });
   });
+
+  describe("paginate", function() {
+    it("gets items", async () => {
+      const results = await Career.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(4);
+    });
+
+    it("gets 1 item", async () => {
+      const results = await Career.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(true);
+    });
+
+    it("gets items after element with id", async () => {
+      const results = await Career.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          startingAfter: "5d799472becb4e208db91c7b"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(2);
+      expect(results.items[0].alias).to.eql("e5-petty-officer-second-class");
+    });
+  });
 });

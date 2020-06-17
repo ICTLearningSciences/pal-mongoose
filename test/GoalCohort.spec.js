@@ -612,4 +612,33 @@ describe("GoalCohort", function() {
       expect(goalCohort.teams[5].inviteCode).to.exist;
     });
   });
+
+  describe("paginate", function() {
+    it("gets items", async () => {
+      const results = await GoalCohort.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(7);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("gets 1 item", async () => {
+      const results = await GoalCohort.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(true);
+    });
+  });
 });
