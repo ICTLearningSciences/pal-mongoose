@@ -92,8 +92,6 @@ declare module "pal-mongoose" {
 
     static findUserCohort: (user: User, goal: Goal) => Promise<GoalCohort>;
 
-    static findCohortByName: (name: string, goal: Goal) => Promise<GoalCohort>;
-
     static invite: (
       user: User,
       goal: Goal,
