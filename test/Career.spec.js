@@ -41,7 +41,7 @@ describe("Career", function() {
   });
 
   describe("paginate", function() {
-    it("gets items", async () => {
+    it("finds an initial page of items with a default limit", async () => {
       const results = await Career.paginate(
         {},
         {
@@ -51,9 +51,15 @@ describe("Career", function() {
       expect(results).to.exist;
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(4);
+      expect(results.items[0].alias).to.eql("e2-fire-controlman");
+      expect(results.items[1].alias).to.eql("e6-petty-officer-first-class");
+      expect(results.items[2].alias).to.eql("e5-petty-officer-second-class");
+      expect(results.items[3].alias).to.eql(
+        "dhs-testing-and-evaluation-leader"
+      );
     });
 
-    it("gets 1 item", async () => {
+    it("finds an initial page of items with a specified limit", async () => {
       const results = await Career.paginate(
         {},
         {
@@ -64,21 +70,24 @@ describe("Career", function() {
       expect(results).to.exist;
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql("e2-fire-controlman");
       expect(results.hasMore).to.eql(true);
     });
 
-    it("gets items after element with id", async () => {
+    it("finds a subsequent page of items with a speficied limit, starting from cursor", async () => {
       const results = await Career.paginate(
         {},
         {
           sort: { _id: 1 },
-          startingAfter: "5d799472becb4e208db91c7b"
+          limit: 1,
+          startingAfter: "5d799472becb4e208db91c7a"
         }
       );
       expect(results).to.exist;
       expect(results.items).to.exist;
-      expect(results.items.length).to.eql(2);
-      expect(results.items[0].alias).to.eql("e5-petty-officer-second-class");
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql("e6-petty-officer-first-class");
+      expect(results.hasMore).to.eql(true);
     });
   });
 });

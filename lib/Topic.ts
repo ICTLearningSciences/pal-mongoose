@@ -1,14 +1,27 @@
-const mongoose = require("./utils/mongoose");
-const Schema = mongoose.Schema;
-const KnowledgeComponentRelevance = require("./schema/KnowledgeComponentRelevance");
+// const mongoose = require("./utils/mongoose");
+// const Schema = mongoose.Schema;
+import mongoose, { Schema, Document } from "mongoose";
+import KnowledgeComponentRelevanceSchema, {
+  KnowledgeComponentRelevance
+} from "./schema/KnowledgeComponentRelevance";
 const handlePromiseOrCallback = require("./utils/handle-promise-or-callback");
-const Topic = new Schema(
+
+export interface Topic extends Document {
+  alias: string;
+  pronunciation: string;
+  name: string;
+  recommender: string;
+  knowledgeComponents: KnowledgeComponentRelevance[];
+  prerequisiteTopics: mongoose.Types.ObjectId[];
+}
+
+export const TopicSchema = new Schema(
   {
     name: { type: String, required: "{PATH} is required!" },
     alias: { type: String, required: "{PATH} is required!", unique: true },
     pronunciation: { type: String },
     recommender: { type: String },
-    knowledgeComponents: [KnowledgeComponentRelevance],
+    knowledgeComponents: [KnowledgeComponentRelevanceSchema],
     prerequisiteTopics: [
       {
         type: Schema.Types.ObjectId,
@@ -19,12 +32,12 @@ const Topic = new Schema(
   { timestamps: true }
 );
 
-Topic.plugin(require("./plugins/mongoose-find-one-by-id-or-alias"));
-Topic.plugin(require("./plugins/mongoose-no-underscore-id"));
-Topic.plugin(require("mongoose-findorcreate"));
-Topic.plugin(require("mongoose-cursor-pagination").default);
+TopicSchema.plugin(require("./plugins/mongoose-find-one-by-id-or-alias"));
+TopicSchema.plugin(require("./plugins/mongoose-no-underscore-id"));
+TopicSchema.plugin(require("mongoose-findorcreate"));
+TopicSchema.plugin(require("mongoose-cursor-pagination").default);
 
-Topic.methods.findLessons = function(fields, callback) {
+TopicSchema.methods.findLessons = function(fields: any, callback: any) {
   if (typeof fields === "function") {
     callback = fields;
     fields = null;
@@ -52,4 +65,4 @@ Topic.methods.findLessons = function(fields, callback) {
   return handlePromiseOrCallback(promise, callback);
 };
 
-module.exports = mongoose.model("Topic", Topic);
+export default mongoose.model<Topic>("Topic", TopicSchema);

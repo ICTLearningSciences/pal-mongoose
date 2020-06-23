@@ -1,10 +1,21 @@
-const mongoose = require("./utils/mongoose");
-const Schema = mongoose.Schema;
+// const mongoose = require("./utils/mongoose");
+// const Schema = mongoose.Schema;
+import mongoose, { Schema, Document } from "mongoose";
 const Lesson = require("./Lesson");
 const Resource = require("./Resource");
 const User = require("./User");
 
-const ResourceStatus = new Schema(
+export interface UserLessonSession extends Document {
+  user: mongoose.Types.ObjectId;
+  lesson: mongoose.Types.ObjectId;
+  resourceStatuses: {
+    isTerminationPending: boolean;
+    resource: mongoose.Types.ObjectId;
+  };
+  session: string;
+}
+
+export const ResourceStatus = new Schema(
   {
     resource: {
       type: Schema.Types.ObjectId,
@@ -18,7 +29,7 @@ const ResourceStatus = new Schema(
 
 ResourceStatus.plugin(require("mongoose-cursor-pagination").default);
 
-const UserLessonSession = new Schema(
+export const UserLessonSessionSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -35,15 +46,15 @@ const UserLessonSession = new Schema(
   { timestamps: true }
 );
 
-UserLessonSession.index({ user: 1, session: 1 }, { unique: true });
-UserLessonSession.plugin(require("./plugins/mongoose-to-id"));
-UserLessonSession.plugin(require("mongoose-findorcreate"));
-UserLessonSession.plugin(require("./plugins/mongoose-no-underscore-id"));
-UserLessonSession.plugin(require("mongoose-cursor-pagination").default);
+UserLessonSessionSchema.index({ user: 1, session: 1 }, { unique: true });
+UserLessonSessionSchema.plugin(require("./plugins/mongoose-to-id"));
+UserLessonSessionSchema.plugin(require("mongoose-findorcreate"));
+UserLessonSessionSchema.plugin(require("./plugins/mongoose-no-underscore-id"));
+UserLessonSessionSchema.plugin(require("mongoose-cursor-pagination").default);
 
-UserLessonSession.statics.findOneByUserAndSession = async function(
-  user,
-  session
+UserLessonSessionSchema.statics.findOneByUserAndSession = async function(
+  user: { id: any },
+  session: any
 ) {
   if (!(user && user instanceof User)) {
     throw new Error("user must be a User instance");
@@ -54,10 +65,10 @@ UserLessonSession.statics.findOneByUserAndSession = async function(
   return await this.findOne({ user: user.id, session }).exec();
 };
 
-UserLessonSession.statics.isResourceTerminationPending = async function(
-  user,
-  session,
-  resource
+UserLessonSessionSchema.statics.isResourceTerminationPending = async function(
+  user: any,
+  session: any,
+  resource: { _id: any }
 ) {
   const lessSess = await this.findOneByUserAndSession(user, session);
   if (!lessSess) {
@@ -66,15 +77,15 @@ UserLessonSession.statics.isResourceTerminationPending = async function(
   const resourceId =
     resource instanceof Resource ? `${resource._id}` : `${resource}`;
   const rs = lessSess.resourceStatuses.find(
-    x => `${x.resource}` === `${resourceId}`
+    (x: { resource: any }) => `${x.resource}` === `${resourceId}`
   );
   return Boolean(rs && rs.isTerminationPending);
 };
 
-UserLessonSession.statics.setResourceTerminationPending = async function(
-  user,
-  session,
-  resource,
+UserLessonSessionSchema.statics.setResourceTerminationPending = async function(
+  user: { id: any },
+  session: any,
+  resource: { _id: any },
   terminationPending = true
 ) {
   if (!(user && user instanceof User)) {
@@ -102,7 +113,7 @@ UserLessonSession.statics.setResourceTerminationPending = async function(
     ? lessSess.resourceStatuses
     : [];
   let rs = lessSess.resourceStatuses.find(
-    x => `${x.resource}` === `${resourceId}`
+    (x: { resource: any }) => `${x.resource}` === `${resourceId}`
   );
   if (rs) {
     rs.isTerminationPending = Boolean(terminationPending);
@@ -117,10 +128,10 @@ UserLessonSession.statics.setResourceTerminationPending = async function(
   return lessSess;
 };
 
-UserLessonSession.statics.saveUserLessonSession = async function(
-  user,
-  session,
-  lesson
+UserLessonSessionSchema.statics.saveUserLessonSession = async function(
+  user: { id: any },
+  session: any,
+  lesson: { id: any }
 ) {
   if (!(user && user instanceof User)) {
     throw new Error("user must be a User instance");
@@ -142,4 +153,7 @@ UserLessonSession.statics.saveUserLessonSession = async function(
   ).exec();
 };
 
-module.exports = mongoose.model("UserLessonSession", UserLessonSession);
+export default mongoose.model<UserLessonSession>(
+  "UserLessonSession",
+  UserLessonSessionSchema
+);
