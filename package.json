@@ -10,7 +10,7 @@
   "scripts": {
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx}'",
     "lint:fix": "eslint lib --ext ts --ext js --fix",
-    "test": "export ENV=test && export NODE_ENV=test && npx mocha --full-trace --recursive --reporter spec --delay",
+    "test": "export ENV=test && export NODE_ENV=test && npx mocha --full-trace --recursive --reporter spec --delay --timeout 5000",
     "test:all": "npm run test:format && npm run test:audit && npm run test:lint",
     "test:audit": "npm audit --audit-level=moderate --production",
     "test:format": "prettier --check '**/*.{js,jsx,json,ts,tsx}'",
@@ -34,6 +34,7 @@
     "fs-extra": "^6.0.1",
     "http-errors": "^1.7.3",
     "is-hex": "^1.1.3",
+    "mongoose-cursor-pagination": "^1.0.1",
     "mongoose-findorcreate": "^3.0.0",
     "moniker": "^0.1.2",
     "parent-require": "^1.0.0",

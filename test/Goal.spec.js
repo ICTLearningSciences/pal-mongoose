@@ -53,4 +53,50 @@ describe("Goal", function() {
       ]);
     });
   });
+
+  describe("paginate", function() {
+    it("finds an initial page of items with a default limit", async () => {
+      const results = await Goal.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(6);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await Goal.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(true);
+      expect(results.items[0].alias).to.eql("advancement-test-fc-e3");
+    });
+
+    it("finds a subsequent page of items with a speficied limit, starting from cursor", async () => {
+      const results = await Goal.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1,
+          startingAfter: "5b5a2cd69b1fafcf999d957e"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(true);
+      expect(results.items[0].alias).to.eql("health-and-wellness");
+    });
+  });
 });

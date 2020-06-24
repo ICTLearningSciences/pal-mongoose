@@ -42,4 +42,48 @@ describe("Cohort", function() {
       expect(cohort.nameCanonical).to.eql("newcohort");
     });
   });
+
+  describe("paginate", function() {
+    it("finds an initial page of items with a default limit", async () => {
+      const results = await Cohort.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(3);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await Cohort.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].nameCanonical).to.eql("studycohort");
+      expect(results.hasMore).to.eql(true);
+    });
+
+    it("finds a subsequent page of items with a speficied limit, starting from cursor", async () => {
+      const results = await Cohort.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1,
+          startingAfter: "5ed82fb2a869c32825c74474"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].nameCanonical).to.eql("testcohort");
+    });
+  });
 });

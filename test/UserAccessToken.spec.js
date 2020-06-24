@@ -220,4 +220,54 @@ describe("UserAccessToken", function() {
       expect(expectedErr).to.exist;
     });
   });
+
+  describe("paginate", function() {
+    it("finds an initial page of items with a default limit", async () => {
+      const results = await UserAccessToken.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(3);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await UserAccessToken.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0]._id).to.eql(
+        mongoose.Types.ObjectId("5bf4a366becb4e208de99091")
+      );
+      expect(results.hasMore).to.eql(true);
+    });
+
+    it("finds a subsequent page of items with a speficied limit, starting from cursor", async () => {
+      const results = await UserAccessToken.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1,
+          startingAfter: "5bf4a366becb4e208de99091"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0]._id).to.eql(
+        mongoose.Types.ObjectId("5bf4a366becb4e208de99093")
+      );
+      expect(results.hasMore).to.eql(true);
+    });
+  });
 });

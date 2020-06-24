@@ -95,4 +95,33 @@ describe("UserCohort", function() {
       expect(await GoalCohort.findUserCohort(user, goal)).to.not.exist;
     });
   });
+
+  describe("paginate", function() {
+    it("finds an initial page of items with a default limit", async () => {
+      const results = await UserCohort.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await UserCohort.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.hasMore).to.eql(false);
+    });
+  });
 });

@@ -44,4 +44,52 @@ describe("Lesson", function() {
       );
     });
   });
+
+  describe("paginate", function() {
+    it("finds an initial page of items with a default limit", async () => {
+      const results = await Lesson.paginate(
+        {},
+        {
+          sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(6);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await Lesson.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql("diode-action-diodes-tutorial");
+      expect(results.hasMore).to.eql(true);
+    });
+
+    it("finds a subsequent page of items with a speficied limit, starting from cursor", async () => {
+      const results = await Lesson.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1,
+          startingAfter: "5bb6540cbecb4e208da0f9b4"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql(
+        "diode-action-transistors-sneak-peak"
+      );
+      expect(results.hasMore).to.eql(true);
+    });
+  });
 });
