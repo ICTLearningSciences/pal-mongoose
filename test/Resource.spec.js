@@ -43,12 +43,11 @@ describe("Resource", function() {
   });
 
   describe("paginate", function() {
-    it("gets items", async () => {
+    it("finds an initial page of items with a default limit", async () => {
       const results = await Resource.paginate(
         {},
         {
-          sort: { _id: 1 },
-          limit: 99
+          sort: { _id: 1 }
         }
       );
       expect(results).to.exist;
@@ -57,7 +56,7 @@ describe("Resource", function() {
       expect(results.hasMore).to.eql(false);
     });
 
-    it("gets 1 item", async () => {
+    it("finds an initial page of items with a specified limit", async () => {
       const results = await Resource.paginate(
         {},
         {
@@ -68,6 +67,23 @@ describe("Resource", function() {
       expect(results).to.exist;
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql("Polynomials Overview");
+      expect(results.hasMore).to.eql(true);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await Resource.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1,
+          startingAfter: "5b5a2cd69b1fafcf999d9222"
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(1);
+      expect(results.items[0].alias).to.eql("diodes-101-mcq-prerequisites-02");
       expect(results.hasMore).to.eql(true);
     });
   });

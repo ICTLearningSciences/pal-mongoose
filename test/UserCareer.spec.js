@@ -12,11 +12,25 @@ describe("UserCareer", function() {
   });
 
   describe("paginate", function() {
-    it("gets items", async () => {
+    it("finds an initial page of items with a default limit", async () => {
       const results = await UserCareer.paginate(
         {},
         {
           sort: { _id: 1 }
+        }
+      );
+      expect(results).to.exist;
+      expect(results.items).to.exist;
+      expect(results.items.length).to.eql(0);
+      expect(results.hasMore).to.eql(false);
+    });
+
+    it("finds an initial page of items with a specified limit", async () => {
+      const results = await UserCareer.paginate(
+        {},
+        {
+          sort: { _id: 1 },
+          limit: 1
         }
       );
       expect(results).to.exist;

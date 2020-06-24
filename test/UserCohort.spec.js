@@ -97,12 +97,11 @@ describe("UserCohort", function() {
   });
 
   describe("paginate", function() {
-    it("gets items", async () => {
+    it("finds an initial page of items with a default limit", async () => {
       const results = await UserCohort.paginate(
         {},
         {
-          sort: { _id: 1 },
-          limit: 99
+          sort: { _id: 1 }
         }
       );
       expect(results).to.exist;
@@ -111,7 +110,7 @@ describe("UserCohort", function() {
       expect(results.hasMore).to.eql(false);
     });
 
-    it("gets 1 item", async () => {
+    it("finds an initial page of items with a specified limit", async () => {
       const results = await UserCohort.paginate(
         {},
         {

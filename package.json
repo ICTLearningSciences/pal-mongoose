@@ -10,7 +10,7 @@
   "scripts": {
     "format": "prettier --write '**/*.{js,jsx,json,ts,tsx}'",
     "lint:fix": "eslint lib --ext ts --ext js --fix",
-    "test": "export ENV=test && export NODE_ENV=test && npx mocha --full-trace --recursive --reporter spec --delay",
+    "test": "export ENV=test && export NODE_ENV=test && npx mocha --full-trace --recursive --reporter spec --delay --timeout 5000",
     "test:all": "npm run test:format && npm run test:audit && npm run test:lint",
     "test:audit": "npm audit --audit-level=moderate --production",
     "test:format": "prettier --check '**/*.{js,jsx,json,ts,tsx}'",
