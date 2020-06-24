@@ -9,6 +9,11 @@ declare module "pal-mongoose" {
    */
   export function ensureAllSchemasLoaded(): void;
 
+  export interface PaginatedResolveResult<T> {
+    items: T[];
+    hasMore: boolean;
+  }
+
   export class AppVersions extends mongoose.Model {
     platform: string;
     appId: boolean;
@@ -29,6 +34,11 @@ declare module "pal-mongoose" {
     suggestedGoals: mongoose.Types.ObjectId[];
 
     static findSuggested: () => Promise<Career>;
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Career>>;
   }
 
   export class Cohort extends mongoose.Model {
@@ -36,8 +46,12 @@ declare module "pal-mongoose" {
     nameCanonical: string;
 
     static findForName: (name: string) => Promise<Cohort>;
-
     static findOrCreateForName(name: string): Promise<Cohort>;
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Cohort>>;
   }
 
   export class DemoUser extends mongoose.Model {
@@ -63,6 +77,11 @@ declare module "pal-mongoose" {
     findAllKnowledgeComponents: () => { [kc: string]: string };
     findFocusByIdOrAlias: (idOrAlias: string) => Focus | null;
     findUniqueTopicIds: () => mongoose.Types.ObjectId[];
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Goal>>;
   }
 
   export interface GoalCohortTeam {
@@ -121,6 +140,12 @@ declare module "pal-mongoose" {
     ) => Promise<GoalCohort>;
 
     static leaveCohort: (user: User, goal: Goal) => Promise<GoalCohort>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<GoalCohort>>;
   }
 
   export interface KnowledgeComponentRelevance {
@@ -132,6 +157,12 @@ declare module "pal-mongoose" {
     alias: string;
     desc: string;
     name: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<KnowledgeComponent>>;
   }
 
   export class Lesson extends mongoose.Model {
@@ -148,6 +179,12 @@ declare module "pal-mongoose" {
     resources: mongoose.Types.ObjectId[];
     topic: mongoose.Types.ObjectId;
     type: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Lesson>>;
   }
 
   export class MultipleChoiceQuestion extends mongoose.Model {
@@ -164,6 +201,12 @@ declare module "pal-mongoose" {
       data: any;
     };
     name: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<MultipleChoiceQuestion>>;
   }
 
   export class Resource extends mongoose.Model {
@@ -182,6 +225,12 @@ declare module "pal-mongoose" {
     name: string;
     type: string;
     uri: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Resource>>;
   }
 
   export class Topic extends mongoose.Model {
@@ -193,6 +242,11 @@ declare module "pal-mongoose" {
     prerequisiteTopics: mongoose.Types.ObjectId[];
 
     findLessons: () => Promise<Lesson[]>;
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Topic>>;
   }
 
   export class User extends mongoose.Model {
@@ -244,6 +298,17 @@ declare module "pal-mongoose" {
       email: string,
       deviceId: string
     ) => Promise<User>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<User>>;
+  }
+
+  export interface UserAccessTokenResolveResult {
+    accessToken: string;
+    user: User;
   }
 
   export class UserAccessToken extends mongoose.Model {
@@ -251,6 +316,27 @@ declare module "pal-mongoose" {
     resetPasswordExpires: Date;
     resetPasswordToken: string;
     user: mongoose.Types.ObjectId;
+
+    static loginWithCredentials: (
+      username: string,
+      password: string,
+      deviceId: string
+    ) => Promise<UserAccessTokenResolveResult>;
+    static signUpWithCredentials: (
+      username: string,
+      password: string,
+      email: string,
+      deviceId: string
+    ) => Promise<UserAccessTokenResolveResult>;
+    static resetPassword: (
+      token: string,
+      password: string
+    ) => Promise<UserAccessTokenResolveResult>;
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<UserAccessToken>>;
   }
 
   export class UserCohort extends mongoose.Model {
@@ -260,6 +346,12 @@ declare module "pal-mongoose" {
     static findForUser: (user: User) => Promise<UserCohort>;
 
     static setUserCohort: (user: User, cohort: string) => Promise<void>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<UserCohort>>;
   }
 
   export class UserGoal extends mongoose.Model {
@@ -274,13 +366,21 @@ declare module "pal-mongoose" {
       goal: string,
       focus?: string
     ) => Promise<void>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<UserGoal>>;
   }
+
   export class UserKnowledgeComponent extends mongoose.Model {
     asymptote: number;
     avgTimeDecay: number;
     kc: mongoose.Types.ObjectId;
     mastery: number;
     timestamp: Date;
+
     static insertOrUpdateIfNewer: (
       user: User,
       kc: KnowledgeComponent,
@@ -291,6 +391,12 @@ declare module "pal-mongoose" {
         asymptote: number;
       }
     ) => Promise<void>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<UserKnowledgeComponent>>;
   }
 
   export class UserLessonSession extends mongoose.Model {
@@ -325,5 +431,11 @@ declare module "pal-mongoose" {
       resource: Resource | string | mongoose.Types.ObjectId,
       terminationPending?: boolean
     ) => Promise<UserLessonSession>;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<UserLessonSession>>;
   }
 }
