@@ -394,7 +394,7 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "The team is in a different cohort than the one you are assigned to"
+        "The team is in a different cohort than the one you are assigned to."
       );
       expect(expectedErr.status).to.equal(409);
     });
@@ -413,7 +413,7 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "The team is in a different cohort than the one you are assigned to"
+        "The team is in a different cohort than the one you are assigned to."
       );
       expect(expectedErr.status).to.equal(409);
     });
@@ -432,7 +432,7 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "The team is in a different cohort than the one you are assigned to"
+        "The team is in a different cohort than the one you are assigned to."
       );
       expect(expectedErr.status).to.equal(409);
     });
@@ -450,7 +450,7 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "The cohort cannot accept any more members"
+        "The cohort cannot accept any more members."
       );
       expect(expectedErr.status).to.equal(409);
     });
@@ -468,7 +468,7 @@ describe("GoalCohort", function() {
       }
       expect(expectedErr).to.exist;
       expect(expectedErr.message).to.equal(
-        "failed to find team with invite code"
+        "Failed to find team with invite code."
       );
       expect(expectedErr.status).to.equal(404);
     });
