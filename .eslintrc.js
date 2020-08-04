@@ -5,7 +5,6 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  plugins: ["header"],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: "module"
@@ -15,7 +14,6 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-this-alias": 0,
     "@typescript-eslint/no-use-before-define": 0,
-    "@typescript-eslint/no-var-requires": 0,
-    "header/header": [2, "LICENSE"]
+    "@typescript-eslint/no-var-requires": 0
   }
 };
