@@ -31,6 +31,16 @@ jobs:
       - run:
           name: Test lint
           command: npm run test:lint
+  test-license:
+    executor: node
+    steps:
+      - checkout
+      - run: 
+          name: Install
+          command: npm ci
+      - run:
+          name: Test license
+          command: npm run test:license
   test-types:
     executor: node
     steps:
@@ -58,5 +68,6 @@ workflows:
       - test-audit
       - test-format
       - test-lint
+      - test-license
       - test-types
       - test
