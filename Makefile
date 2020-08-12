@@ -21,7 +21,7 @@ test: node_modules/mocha
 	&& npm test
 
 .PHONY: test-all
-test-all: test-audit test-format test-lint test
+test-all: test-audit test-format test-lint test-license test
 
 PHONY: test-audit
 test-audit:
@@ -34,3 +34,18 @@ test-format: node_modules/prettier
 .PHONY: test-lint
 test-lint: node_modules/eslint
 	npm run test:lint
+
+LICENSE:
+	@echo "you must have a LICENSE file" 1>&2
+	exit 1
+
+.PHONY: license
+license: LICENSE node_modules/license-check-and-add
+	npm run license:fix
+
+.PHONY: test-license
+test-license: LICENSE node_modules/license-check-and-add
+	npm run test:license
+
+node_modules/license-check-and-add:
+	npm ci

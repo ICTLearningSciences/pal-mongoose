@@ -1,0 +1,11 @@
+# Ignore everything
+*
+.git
+
+# But not these files...
+!*/
+!*/*.txt
+!*/*.js
+!*/*.ts
+!*/*.html
+!*/*.handlebars
