@@ -1520,6 +1520,186 @@ module.exports = {
     }
   ],
 
+  plans: [
+    {
+      _id: ObjectId("5cffef5ebecb4e207d44eb42"),
+      name: "Notes",
+      title: "Notes",
+      purpose: "Keep track of your notes for this goal",
+      sections: [
+        {
+          name: "Notes",
+          header: "Notes",
+          fields: [
+            { header: "", entries: [{ type: "text", isOptional: true }] }
+          ]
+        }
+      ]
+    },
+    {
+      _id: ObjectId("5cffef5ebecb4e207d44eb43"),
+      name: "Safety Plan",
+      title: "Safety Plan Worksheet",
+      purpose:
+        "Providers and patients complete Safety Plan together, and patients keep it with them",
+      sections: [
+        {
+          name: "Warning signs",
+          header:
+            "Warning signs (that I might be headed toward a crisis and the Safety Plan should be used)",
+          fields: [
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] }
+          ]
+        },
+        {
+          name: "Internal coping strategies",
+          header:
+            "Internal coping strategies (things I can do to distract from my problems without contacting another person)",
+          fields: [
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] }
+          ]
+        },
+        {
+          name: "Healthy distractions",
+          header:
+            "People, places and social settings that provide healthy distraction (and help me feel better)",
+          fields: [
+            {
+              header: "Person",
+              entries: [{ type: "contact" }]
+            },
+            {
+              header: "Person",
+              entries: [{ type: "contact" }]
+            },
+            {
+              header: "Place",
+              entries: [{ type: "text", placeholder: "Address" }]
+            },
+            {
+              header: "Place",
+              entries: [{ type: "text", placeholder: "Address" }]
+            }
+          ]
+        },
+        {
+          name: "Personal contacts",
+          header:
+            "People I can contact to ask for help (family members, friends and co-workers)",
+          fields: [
+            {
+              entries: [{ type: "contact" }]
+            },
+            {
+              entries: [{ type: "contact" }]
+            },
+            {
+              entries: [{ type: "contact" }]
+            },
+            {
+              entries: [{ type: "contact" }]
+            }
+          ]
+        },
+        {
+          name: "Profressional contacts",
+          header: "Professionals or agencies that can help me during a crisis",
+          fields: [
+            {
+              header: "Clinician/Agency",
+              entries: [{ type: "contact" }]
+            },
+            {
+              header: "Clinician/Agency",
+              entries: [{ type: "contact" }]
+            },
+            {
+              header: "Local Emergency Department",
+              entries: [
+                { type: "text", placeholder: "Location/address" },
+                { type: "contact" }
+              ]
+            },
+            {
+              header: "Other",
+              entries: [{ type: "contact" }]
+            },
+            {
+              entries: [
+                {
+                  type: "contact",
+                  value: {
+                    name: "National Suicide Prevention Lifeline",
+                    primary: 0,
+                    contactInfo: [
+                      {
+                        contact: "8002738255",
+                        method: "phone"
+                      }
+                    ]
+                  },
+                  isOptional: true
+                }
+              ]
+            },
+            {
+              entries: [
+                {
+                  type: "contact",
+                  value: {
+                    name: "OneSource Crisis Line",
+                    primary: 0,
+                    contactInfo: [
+                      {
+                        contact: "8003429647",
+                        method: "phone"
+                      },
+                      {
+                        contact:
+                          "https://www.militaryonesource.mil/all-the-ways/",
+                        method: "web"
+                      }
+                    ]
+                  },
+                  isOptional: true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "Safe environment",
+          header:
+            "Making my environment safe (plans for removing or limiting access to lethal means)",
+          fields: [
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] }
+          ]
+        },
+        {
+          name: "Reasons for living",
+          header:
+            "My reasons for living (things that are most important to me and worth living for)",
+          fields: [
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] },
+            { entries: [{ type: "text" }] }
+          ]
+        }
+      ]
+    }
+  ],
+
   users: [
     {
       _id: ObjectId("5dd88892c012321c14267155"),

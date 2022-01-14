@@ -258,6 +258,31 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<Topic>>;
   }
 
+  export class Plan extends mongoose.Model {
+    name: string;
+    title: string;
+    purpose: string;
+    sections: {
+      name: string;
+      header: string;
+      fields: {
+        header: string;
+        entries: {
+          type: string;
+          placeholder: string;
+          isOptional: boolean;
+          value: any;
+        }[];
+      }[];
+    }[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Plan>>;
+  }
+
   export class User extends mongoose.Model {
     creationDeviceId: string;
     deleted: boolean;
