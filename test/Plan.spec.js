@@ -22,6 +22,11 @@ describe("Plan", function() {
   });
 
   describe("findOneByIdOrAlias", function() {
+    it("finds one by alias", async () => {
+      const item = await Plan.findOneByIdOrAlias("notes");
+      expect(item).to.have.property("name", "Notes");
+    });
+
     it("finds one by id string", async () => {
       const item = await Plan.findOneByIdOrAlias("5cffef5ebecb4e207d44eb42");
       expect(item).to.have.property("name", "Notes");

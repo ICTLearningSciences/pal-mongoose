@@ -260,6 +260,7 @@ declare module "pal-mongoose" {
 
   export class Plan extends mongoose.Model {
     name: string;
+    alias: string;
     title: string;
     purpose: string;
     sections: {

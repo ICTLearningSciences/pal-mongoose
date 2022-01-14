@@ -1524,6 +1524,7 @@ module.exports = {
     {
       _id: ObjectId("5cffef5ebecb4e207d44eb42"),
       name: "Notes",
+      alias: "notes",
       title: "Notes",
       purpose: "Keep track of your notes for this goal",
       sections: [
@@ -1539,6 +1540,7 @@ module.exports = {
     {
       _id: ObjectId("5cffef5ebecb4e207d44eb43"),
       name: "Safety Plan",
+      alias: "safety-plan",
       title: "Safety Plan Worksheet",
       purpose:
         "Providers and patients complete Safety Plan together, and patients keep it with them",
