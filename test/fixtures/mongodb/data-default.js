@@ -1525,7 +1525,6 @@ module.exports = {
       _id: ObjectId("5cffef5ebecb4e207d44eb42"),
       name: "Notes",
       alias: "notes",
-      title: "Notes",
       purpose: "Keep track of your notes for this goal",
       sections: [
         {

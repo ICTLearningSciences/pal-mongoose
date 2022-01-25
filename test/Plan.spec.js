@@ -30,7 +30,6 @@ describe("Plan", function() {
     it("finds one by id string", async () => {
       const item = await Plan.findOneByIdOrAlias("5cffef5ebecb4e207d44eb42");
       expect(item).to.have.property("name", "Notes");
-      expect(item).to.have.property("title", "Notes");
     });
 
     it("finds one by id object", async () => {
@@ -38,7 +37,6 @@ describe("Plan", function() {
         mongoose.Types.ObjectId("5cffef5ebecb4e207d44eb42")
       );
       expect(item).to.have.property("name", "Notes");
-      expect(item).to.have.property("title", "Notes");
     });
   });
 
