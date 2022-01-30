@@ -270,6 +270,12 @@ declare module "pal-mongoose" {
         entries: {
           type: string;
           question: string;
+          validation: {
+            regex: string;
+            keywords: string[];
+            characterCount: number;
+            wordCount: number;
+          };
           placeholder: string;
           isOptional: boolean;
           value: any;
