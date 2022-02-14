@@ -263,21 +263,13 @@ declare module "pal-mongoose" {
     alias: string;
     purpose: string;
     sections: {
+      alias: string;
       name: string;
       header: string;
       fields: {
         header: string;
         entries: {
           type: string;
-          question: string;
-          validation: {
-            regex: string;
-            requiredRegex: string;
-            wordCount: number;
-            minWordCount: number;
-            characterCount: number;
-            minCharacterCount: number;
-          };
           placeholder: string;
           isOptional: boolean;
           value: any;
