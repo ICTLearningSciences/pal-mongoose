@@ -259,11 +259,11 @@ declare module "pal-mongoose" {
   }
 
   export class Plan extends mongoose.Model {
-    name: string;
     alias: string;
+    name: string;
+    lesson: string;
     purpose: string;
     sections: {
-      alias: string;
       name: string;
       header: string;
       fields: {
@@ -282,6 +282,34 @@ declare module "pal-mongoose" {
       options?: any,
       callback?: any
     ) => Promise<PaginatedResolveResult<Plan>>;
+  }
+
+  export class PlanDialogue extends mongoose.Model {
+    alias: string;
+    name: string;
+    plan: string;
+    introduction: string;
+    conclusion: string;
+    questions: {
+      question: string;
+      section: number;
+      field: number;
+      entry: number;
+      validation: {
+        regex: string;
+        requiredRegex: string;
+        wordCount: number;
+        minWordCount: number;
+        characterCount: number;
+        minCharacterCount: number;
+      };
+    }[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<PlanDialogue>>;
   }
 
   export class User extends mongoose.Model {
