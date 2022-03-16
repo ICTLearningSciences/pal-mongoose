@@ -258,6 +258,83 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<Topic>>;
   }
 
+  export class OpentutorLesson extends mongoose.Model {
+    alias: string;
+    name: string;
+    intro: string;
+    question: string;
+    expectations: {
+      expectation: string;
+      features: any[];
+      hints: {
+        text: string;
+      }[];
+    }[];
+    conclusion: string[];
+    dialogCategory: string;
+    learningFormat: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<OpentutorLesson>>;
+  }
+
+  export class Plan extends mongoose.Model {
+    alias: string;
+    name: string;
+    purpose: string;
+    sections: {
+      lesson: string;
+      name: string;
+      header: string;
+      fields: {
+        header: string;
+        entries: {
+          type: string;
+          placeholder: string;
+          isOptional: boolean;
+          value: any;
+        }[];
+      }[];
+    }[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Plan>>;
+  }
+
+  export class PlanDialogue extends mongoose.Model {
+    alias: string;
+    name: string;
+    plan: string;
+    introduction: string;
+    conclusion: string;
+    questions: {
+      question: string;
+      section: number;
+      field: number;
+      entry: number;
+      validation: {
+        regex: string;
+        requiredRegex: string;
+        wordCount: number;
+        minWordCount: number;
+        characterCount: number;
+        minCharacterCount: number;
+      };
+    }[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<PlanDialogue>>;
+  }
+
   export class User extends mongoose.Model {
     creationDeviceId: string;
     deleted: boolean;

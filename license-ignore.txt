@@ -3,9 +3,5 @@
 .git
 
 # But not these files...
-!*/
-!*/*.txt
-!*/*.js
-!*/*.ts
-!*/*.html
-!*/*.handlebars
+!lib/*
+!test/*
