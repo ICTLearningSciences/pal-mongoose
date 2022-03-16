@@ -258,6 +258,29 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<Topic>>;
   }
 
+  export class OpentutorLesson extends mongoose.Model {
+    alias: string;
+    name: string;
+    intro: string;
+    question: string;
+    expectations: {
+      expectation: string;
+      features: any[];
+      hints: {
+        text: string;
+      }[];
+    }[];
+    conclusion: string[];
+    dialogCategory: string;
+    learningFormat: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<OpentutorLesson>>;
+  }
+
   export class Plan extends mongoose.Model {
     alias: string;
     name: string;
