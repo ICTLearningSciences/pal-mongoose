@@ -742,6 +742,12 @@ module.exports = {
           kc: ObjectId("5bb6540abecb4e208da0f5f9")
         }
       ],
+      attributeRelevance: [
+        {
+          name: "variable1",
+          value: .5,
+        },
+      ],
       name: "C-School Entrance Capstone",
       updatedAt: "2020-04-29T21:08:05.630Z",
       prerequisiteTopics: [
