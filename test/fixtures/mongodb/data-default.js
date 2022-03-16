@@ -83,6 +83,7 @@ module.exports = {
       createdAt: new Date("2018-10-04T17:55:24.839Z"),
       desc:
         "Advancement tests are particularly important reaching E3 and E4 ratings. Study electronics skills, leadership, and general navy information to ace your test.",
+      firstTimeSurveyId: "survey1",
       focusList: [
         {
           topics: [
