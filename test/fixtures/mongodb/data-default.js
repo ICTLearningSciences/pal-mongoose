@@ -745,8 +745,8 @@ module.exports = {
       attributeRelevance: [
         {
           name: "variable1",
-          value: .5,
-        },
+          value: 0.5
+        }
       ],
       name: "C-School Entrance Capstone",
       updatedAt: "2020-04-29T21:08:05.630Z",
