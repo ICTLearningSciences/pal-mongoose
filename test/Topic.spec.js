@@ -39,6 +39,12 @@ describe("Topic", function() {
       );
       expect(item).to.have.property("alias", "diode-action");
     });
+
+    it("verify attribute relevance exists", async () => {
+      const item = await Topic.findOneByIdOrAlias("c-school-entrance-capstone");
+      expect(item.attributeRelevance[0].name).to.equal("variable1");
+      expect(item.attributeRelevance[0].value).to.equal(0.5);
+    });
   });
 
   describe("findLessons", function() {

@@ -83,6 +83,7 @@ module.exports = {
       createdAt: new Date("2018-10-04T17:55:24.839Z"),
       desc:
         "Advancement tests are particularly important reaching E3 and E4 ratings. Study electronics skills, leadership, and general navy information to ace your test.",
+      firstTimeSurveyId: "survey1",
       focusList: [
         {
           topics: [
@@ -739,6 +740,12 @@ module.exports = {
           relevance: 1,
           _id: ObjectId("5ea9ecb55448077906c9408a"),
           kc: ObjectId("5bb6540abecb4e208da0f5f9")
+        }
+      ],
+      attributeRelevance: [
+        {
+          name: "variable1",
+          value: 0.5
         }
       ],
       name: "C-School Entrance Capstone",

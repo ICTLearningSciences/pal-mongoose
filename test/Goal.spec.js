@@ -38,6 +38,11 @@ describe("Goal", function() {
       );
       expect(item).to.have.property("name", "Advancement Test - FC E3");
     });
+
+    it("verify firstTimeSurveyExists", async () => {
+      const item = await Goal.findOneByIdOrAlias("advancement-test-fc-e3");
+      expect(item).to.have.property("firstTimeSurveyId", "survey1");
+    });
   });
 
   describe("findUniqueTopicIds", () => {

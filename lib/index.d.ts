@@ -80,6 +80,7 @@ declare module "pal-mongoose" {
     alias: string;
     pronunciation: string;
     desc: string;
+    firstTimeSurveyId: string;
     focusList: [Focus];
     name: string;
 
@@ -242,6 +243,11 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<Resource>>;
   }
 
+  export interface Variable {
+    name: string;
+    value: number;
+  }
+
   export class Topic extends mongoose.Model {
     alias: string;
     pronunciation: string;
@@ -249,6 +255,7 @@ declare module "pal-mongoose" {
     recommender: string;
     knowledgeComponents: KnowledgeComponentRelevance[];
     prerequisiteTopics: mongoose.Types.ObjectId[];
+    attributeRelevance: Variable[];
 
     findLessons: () => Promise<Lesson[]>;
     static paginate: (
