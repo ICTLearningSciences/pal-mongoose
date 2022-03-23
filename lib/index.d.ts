@@ -531,4 +531,60 @@ declare module "pal-mongoose" {
       callback?: any
     ) => Promise<PaginatedResolveResult<UserLessonSession>>;
   }
+
+  export enum ComparisonType {
+    LTE = "LTE",
+    EQ = "EQ",
+    GTE = "GTE"
+  }
+
+  export interface Condition {
+    variable: string;
+    operator: ComparisonType;
+    value: number;
+  }
+
+  export interface Delta {
+    variableName: string;
+    delta: number;
+  }
+
+  export interface Choice {
+    text: string;
+    deltas: Delta[];
+  }
+
+  export interface LickertScaleEntry {
+    number: number;
+    label?: string;
+    deltas: Delta[];
+  }
+
+  export interface Question {
+    palText?: string;
+    question: string;
+    preconditions: Condition[];
+  }
+
+  export interface MCQuestion extends Question {
+    choices: Choice[];
+    randomizeChoices?: boolean;
+  }
+
+  export interface LickertQuestion extends Question {
+    lickertScale: LickertScaleEntry[];
+  }
+
+  export class Survey extends mongoose.Model {
+    id: string;
+    displayName: string;
+    specialEventConditions: Condition[];
+    questions: (MCQuestion | LickertQuestion)[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Survey>>;
+  }
 }
