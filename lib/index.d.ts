@@ -342,6 +342,22 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<PlanDialogue>>;
   }
 
+  export class SaferDialogue extends mongoose.Model {
+    alias: string;
+    intro: string;
+    question: string;
+    speech: string[];
+    type: string;
+    content: { type: string; value: string }[];
+    nodes: string[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<SaferDialogue>>;
+  }
+
   export class User extends mongoose.Model {
     creationDeviceId: string;
     deleted: boolean;
