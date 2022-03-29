@@ -2119,5 +2119,1835 @@ module.exports = {
         }
       ]
     }
+  ],
+
+  surveys: [
+    {
+      id: "survey1",
+      displayName: "survey 1",
+      questions: [
+        {
+          preconditions: [],
+          question: "MCQ How are you feeling today?",
+          choices: [
+            {
+              text: "fine",
+              deltas: []
+            },
+            {
+              text: "so so",
+              deltas: []
+            },
+            {
+              text: "great",
+              deltas: []
+            }
+          ]
+        },
+        {
+          preconditions: [],
+          question: "Lickert How are you feeling today?",
+          lickertScale: [
+            {
+              number: 1,
+              label: "bad",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "fine",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "great",
+              deltas: []
+            }
+          ]
+        }
+      ],
+      specialEventConditions: []
+    },
+    {
+      id: "suicidePrevention",
+      displayName: "Suicide Prevention",
+      specialEventConditions: [],
+      questions: [
+        // #1
+        {
+          palText: "Welcome to the Navy SAFER app!",
+          question: `Navy SAFER shares ways to protect yourself and people close to you from stress, mental health issues, and suicide. We prioritize training modules that are relevant to you, based on a few minute survey which will remain anonymous.
+
+        Before we get started, if you or someone else are having a mental health crisis *now* then please call the National Suicide Prevention Lifeline at (1-800-273-8255) and dial 1 for the Veteran's Crisis Line. Also, click on the SOS icon in the upper-right to quickly reach other resources if you need help now.
+        
+        Are you okay to proceed?`,
+          preconditions: [],
+          choices: [
+            {
+              text: "Proceed",
+              deltas: [
+                {
+                  variableName: "SkipSurvey",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              text: "I am not comfortable completing a survey",
+              deltas: [
+                {
+                  variableName: "SkipSurvey",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text: "I need immediate help right now",
+              deltas: []
+            }
+          ]
+        },
+        // #2
+        {
+          palText:
+            "Sorry to hear that you aren't comfortable, we will try to do better.",
+          question: "What is the biggest issue that makes you uncomfortable?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "GTE",
+              value: 1
+            }
+          ],
+          choices: [
+            {
+              text:
+                "Career Impact: I worry that my responses could hurt my career",
+              deltas: []
+            },
+            {
+              text:
+                "Data Storage: I need more information on how my responses will be stored",
+              deltas: []
+            },
+            {
+              text:
+                "Privacy: I need more information on how my responses will be made anonymous",
+              deltas: []
+            },
+            {
+              text:
+                "Time: I am worried that the survey will take too much of my time",
+              deltas: []
+            },
+            {
+              text:
+                "Nothing: I have changed my mind and am comfortable completing the survey after all",
+              deltas: [
+                {
+                  variableName: "SkipSurvey",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              text: "Other",
+              deltas: []
+            }
+          ]
+        },
+        // #4
+        {
+          palText:
+            "It's my job to help understand where you're at and deliver the best information for your goals.",
+          question:
+            "Navy life has a lot of stresses, in addition to what the average person encounters. What are you hoping to get from this app, so I can help you better?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text:
+                "I am here to get information to help me with issues from Navy life",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text:
+                "I am having some difficulties with stress and mental health issues",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text:
+                "I want to find information about how to know if someone is at-risk and ways to help",
+              deltas: [
+                {
+                  variableName: "OtherRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text:
+                "General Prevention: Ways to improve command climate and reduce issues that cause stress and risk",
+              deltas: [
+                {
+                  variableName: "Prevention",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text: "I am curious about this system",
+              deltas: []
+            },
+            {
+              text: "I need to complete this for a required training",
+              deltas: [
+                {
+                  variableName: "Disengaged",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text:
+                "I am having a serious crisis now and have been thinking about suicide as an option",
+              deltas: []
+            }
+          ]
+        },
+        // #5
+        {
+          palText:
+            "The next few questions will quickly check what personal stress topics might be most relevant.",
+          question: "How are you feeling today?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "Exceptional",
+              deltas: []
+            },
+            {
+              text: "Great",
+              deltas: []
+            },
+            {
+              text: "Okay",
+              deltas: []
+            },
+            {
+              text: "Bad",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text: "Awful",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              text: "Worst",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            }
+          ]
+        },
+        // #6
+        {
+          palText: "Sorry to hear you haven't been feeling great.",
+          question: "When did you start feeling this way?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "NegativeFeelings",
+              operator: "GTE",
+              value: 1
+            }
+          ],
+          choices: [
+            {
+              text: "Just since today",
+              deltas: []
+            },
+            {
+              text: "For the last week",
+              deltas: []
+            },
+            {
+              text: "A few months",
+              deltas: []
+            },
+            {
+              text: "Most of the last year",
+              deltas: []
+            },
+            {
+              text: "More than a year",
+              deltas: []
+            }
+          ]
+        },
+        // #7
+        {
+          palText: "Thank you for being direct about where you are at",
+          question:
+            "How intense are these negative feelings when you have them? Consider from a scale of Extremely Intense (e.g., very painful, hard to dismiss, or debilitating) to Minor (e.g., minorly upset, slight sadness).",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "NegativeFeelings",
+              operator: "GTE",
+              value: 2
+            }
+          ],
+          choices: [
+            {
+              text: "Extremely Intense",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              text: "Intense",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text: "Moderate",
+              deltas: []
+            },
+            {
+              text: "Minor",
+              deltas: []
+            }
+          ]
+        },
+        // #8
+        {
+          palText:
+            "When under a lot of stress, it's normal to have intense negative feelings.",
+          question:
+            "When you feel this way, do you ever think life isn't worth living sometimes?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "NegativeFeelings",
+              operator: "GTE",
+              value: 3
+            }
+          ],
+          choices: [
+            {
+              text: "All the time",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                },
+                {
+                  variableName: "SuicidalIdealtion",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              text: "Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                },
+                {
+                  variableName: "SuicidalIdealtion",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              text: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                },
+                {
+                  variableName: "SuicidalIdealtion",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              text: "Rarely",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                },
+                {
+                  variableName: "SuicidalIdealtion",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              text: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #9
+        {
+          palText:
+            "When you are feeling this, asking for help is a sign of strength.  It may be difficult to take those steps, but it's worth it.",
+          question:
+            "While we suggested some places to reach out for help, we can also recommend some more specific options. What best describes the kind of help you need right now?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "SuicidalIdeation",
+              operator: "GTE",
+              value: 1
+            },
+            {
+              variable: "SelfRisk",
+              operator: "GTE",
+              value: 5
+            }
+          ],
+          choices: [
+            {
+              text: "I or someone else could get hurt within the next few days",
+              deltas: []
+            },
+            {
+              text: "I am struggling to work through long term issues",
+              deltas: []
+            }
+          ]
+        },
+        // # 10
+        {
+          palText:
+            "It sounds like you are really struggling. I may just be a bot, but I was made by people who care that you get help.",
+          question:
+            "If you have considered it, when was the last time you thought about suicide? (reminder: your responses are confidential)",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "SelfRisk",
+              operator: "GTE",
+              value: 5
+            }
+          ],
+          choices: [
+            {
+              text: "I Need Help Right Now",
+              deltas: []
+            },
+            {
+              text: "Today",
+              deltas: []
+            },
+            {
+              text: "In the last week",
+              deltas: []
+            },
+            {
+              text: "In the last 3 months",
+              deltas: []
+            },
+            {
+              text: "In the last year",
+              deltas: []
+            },
+            {
+              text: "Longer than a year ago",
+              deltas: []
+            },
+            {
+              text: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // # 11
+        {
+          palText: "I appreciate you sticking with me.",
+          question: " Have you ever thought about how you would do it?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            },
+            {
+              variable: "SelfRisk",
+              operator: "GTE",
+              value: 5
+            }
+          ],
+          choices: [
+            {
+              text: "I Need Help Right Now",
+              deltas: []
+            },
+            {
+              text: "Today",
+              deltas: []
+            },
+            {
+              text: "In the last week",
+              deltas: []
+            },
+            {
+              text: "In the last 3 months",
+              deltas: []
+            },
+            {
+              text: "In the last year",
+              deltas: []
+            },
+            {
+              text: "Longer than a year ago",
+              deltas: []
+            },
+            {
+              text: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #12
+        {
+          question:
+            "Do you feel like you've been experiencing a lot of stress?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Stress-Free",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Some Stress",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Stressed",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Worst Stress",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            }
+          ]
+        },
+        // #13
+        {
+          question: "How has your sleeping been?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Good",
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: 3
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Okay",
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: 0
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Poor Sleep",
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: -2
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Worst Sleep",
+              deltas: [
+                {
+                  variableName: "SleepQuality",
+                  delta: -3
+                }
+              ]
+            }
+          ]
+        },
+        // #14
+        {
+          question: "Do you exercise much?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #15
+        {
+          question:
+            "When you're having a hard time, do you feel you have someone to talk to and feel supported?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: 3
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: 0
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: -2
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: [
+                {
+                  variableName: "SocialSupport",
+                  delta: -3
+                }
+              ]
+            }
+          ]
+        },
+        // # 16
+        {
+          question:
+            "Who do you feel that you can really talk to about issues that you are having?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "Significant other",
+              deltas: []
+            },
+            {
+              text: "Family Member",
+              deltas: []
+            },
+            {
+              text: "Friend",
+              deltas: []
+            },
+            {
+              text: "Co-worker",
+              deltas: []
+            },
+            {
+              text: "Chaplain or Counselor (e.g., Fleet and Family services)",
+              deltas: []
+            },
+            {
+              text:
+                "Medical or Mental Health Specialist (e.g., MD, Psychologist)",
+              deltas: []
+            }
+          ]
+        },
+        // #17
+        {
+          question: "Do you find time to relax much?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #18
+        {
+          question: "Do you find yourself quick to anger?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #19
+        {
+          question:
+            "Thinking about your living space, which best describes your gun security?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "Multiple firearms stored loaded and/or unlocked",
+              deltas: []
+            },
+            {
+              text: "Firearm stored loaded and unlocked",
+              deltas: []
+            },
+            {
+              text:
+                "Firearm stored partially secured (e.g., loaded with a lock)",
+              deltas: []
+            },
+            {
+              text:
+                "All firearms stored with a lock (e.g., gun safe, firearm lock) and ammunition separate",
+              deltas: []
+            },
+            {
+              text: "No firearms owned or stored",
+              deltas: []
+            }
+          ]
+        },
+        // #20
+        {
+          question: "Do you ever worry about death?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #21
+        {
+          question: "Are you hopeful for the future?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: -2
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 2
+                }
+              ]
+            }
+          ]
+        },
+        // #22
+        {
+          question: "Do you avoid things you used to like or do all the time?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #23
+        {
+          question:
+            "Do you ever seriously think about how you could get back at someone who did you wrong?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 1
+                },
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #24
+        {
+          question: "Have you ever considered suicide as an option?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 10
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 10
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 10
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 5
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 5
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "SelfRisk",
+                  delta: 5
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: []
+            }
+          ]
+        },
+        // #25
+        {
+          question: "Are you generally a happy person?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very Often",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 3
+                }
+              ]
+            },
+            {
+              number: 2,
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 2
+                }
+              ]
+            },
+            {
+              number: 3,
+              label: "Sometimes",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 1
+                }
+              ]
+            },
+            {
+              number: 4,
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: 0
+                }
+              ]
+            },
+            {
+              number: 5,
+              label: "Seldom",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: -1
+                }
+              ]
+            },
+            {
+              number: 6,
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: -2
+                }
+              ]
+            },
+            {
+              number: 7,
+              label: "Never",
+              deltas: [
+                {
+                  variableName: "NegativeFeelings",
+                  delta: -3
+                }
+              ]
+            }
+          ]
+        },
+        // #26
+        {
+          palText:
+            "Thank you for that. Now we will ask about your experience so far.",
+          question:
+            "How much experience do you have with using stress management techniques (breathing exercises, reframing, positive reflections)?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "2+ years",
+              deltas: []
+            },
+            {
+              text: "1 year",
+              deltas: []
+            },
+            {
+              text: "Months or Weeks",
+              deltas: []
+            },
+            {
+              text: "Brief Training (e.g., seminar)",
+              deltas: []
+            },
+            {
+              text: "No Training",
+              deltas: []
+            }
+          ]
+        },
+        // #27
+        {
+          question:
+            "How much training have you received on identifying your personal stress warning signs for a crisis?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "2+ years",
+              deltas: []
+            },
+            {
+              text: "1 year",
+              deltas: []
+            },
+            {
+              text: "Months or Weeks",
+              deltas: []
+            },
+            {
+              text: "Brief Training (e.g., seminar)",
+              deltas: []
+            },
+            {
+              text: "No Training",
+              deltas: []
+            }
+          ]
+        },
+        // #28
+        {
+          palText: "These questions are about how you might help others.",
+          question:
+            "Thinking about the people in your life that you are concerned about, to which issue concerns you most?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text:
+                "Stress: Helping people manage and reduce their stress level",
+              deltas: []
+            },
+            {
+              text:
+                "Reaching Out: Starting effective conversations for problem-solving",
+              deltas: []
+            },
+            {
+              text:
+                "Emergencies: Recognizing and helping in an emergency, such as suicide risk",
+              deltas: []
+            },
+            {
+              text: "Guns: Helping someone stay safe",
+              deltas: []
+            }
+          ]
+        },
+        // #29
+        {
+          question:
+            "Thinking about their stress level, how high is their stress?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Stress-Free",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Some Stress",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Stressed",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Worst Stress",
+              deltas: []
+            }
+          ]
+        },
+        // #30
+        {
+          question:
+            "Thinking about their living space, which best describes their gun security?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          choices: [
+            {
+              text: "Multiple firearms stored loaded and/or unlocked",
+              deltas: []
+            },
+            {
+              text: "Firearm stored loaded and unlocked",
+              deltas: []
+            },
+            {
+              text:
+                "Firearm stored partially secured (e.g., loaded with a lock)",
+              deltas: []
+            },
+            {
+              text:
+                "All firearms stored with a lock (e.g., gun safe, firearm lock) and ammunition separate",
+              deltas: []
+            },
+            {
+              text: "No firearms owned or stored",
+              deltas: []
+            }
+          ]
+        },
+        // #31
+        {
+          question:
+            "How effectively could you share stress management techniques to another person (breathing exercises, reframing, positive reflections)?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Somewhat",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Little",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Not at All",
+              deltas: []
+            }
+          ]
+        },
+        // #32
+        {
+          question:
+            "How effectively could you share Navy guidance and resources to secure personal firearms to another person?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Somewhat",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Little",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Not at All",
+              deltas: []
+            }
+          ]
+        },
+        // #33
+        {
+          question:
+            "How well could you have an effective conversation with someone struggling greatly  (e.g., depressed, near a breakdown, lashing out), which helps them in the long term?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Somewhat",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Little",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Not at All",
+              deltas: []
+            }
+          ]
+        },
+        // #34
+        {
+          palText:
+            "Great, this will be the last one, and then we'll start your personalized training path.",
+          question:
+            "How effectively do you think you could work with a sailor to recognize their individual warning signs to prevent or respond to a mental health emergency?",
+          preconditions: [
+            {
+              variable: "SkipSurvey",
+              operator: "LTE",
+              value: 0
+            }
+          ],
+          lickertScale: [
+            {
+              number: 1,
+              label: "Very",
+              deltas: []
+            },
+            {
+              number: 2,
+              deltas: []
+            },
+            {
+              number: 3,
+              label: "Somewhat",
+              deltas: []
+            },
+            {
+              number: 4,
+              deltas: []
+            },
+            {
+              number: 5,
+              label: "Little",
+              deltas: []
+            },
+            {
+              number: 6,
+              deltas: []
+            },
+            {
+              number: 7,
+              label: "Not at All",
+              deltas: []
+            }
+          ]
+        }
+      ]
+    }
   ]
 };
