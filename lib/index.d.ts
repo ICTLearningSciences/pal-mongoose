@@ -344,12 +344,12 @@ declare module "pal-mongoose" {
 
   export class SaferDialogue extends mongoose.Model {
     alias: string;
+    type: string;
     intro: string;
     question: string;
     speech: string[];
-    type: string;
-    content: { type: string; value: string }[];
     nodes: string[];
+    content: { type: string; value: string };
 
     static paginate: (
       query?: any,
