@@ -47,7 +47,8 @@ describe("Survey", function() {
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(1);
       expect(results.hasMore).to.eql(true);
-      expect(results.items[0].id).to.eql("survey1");
+      expect(results.items[0].alias).to.eql("survey1");
+      expect(results.items[0].questions[0].palText).to.eql(["penguins", "paltext2"]);
     });
   });
 });

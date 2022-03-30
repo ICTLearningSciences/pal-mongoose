@@ -2123,10 +2123,11 @@ module.exports = {
 
   surveys: [
     {
-      id: "survey1",
+      alias: "survey1",
       displayName: "survey 1",
       questions: [
         {
+          palText: ["penguins", "paltext2"],
           preconditions: [],
           question: "MCQ How are you feeling today?",
           choices: [
@@ -2177,7 +2178,7 @@ module.exports = {
       specialEventConditions: []
     },
     {
-      id: "suicidePrevention",
+      alias: "suicidePrevention",
       displayName: "Suicide Prevention",
       specialEventConditions: [],
       questions: [

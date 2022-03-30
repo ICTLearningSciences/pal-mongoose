@@ -577,7 +577,7 @@ declare module "pal-mongoose" {
   }
 
   export interface Question {
-    palText?: string;
+    palText?: string[];
     question: string;
     preconditions: Condition[];
   }
@@ -592,7 +592,7 @@ declare module "pal-mongoose" {
   }
 
   export class Survey extends mongoose.Model {
-    id: string;
+    alias: string;
     displayName: string;
     specialEventConditions: Condition[];
     questions: (MCQuestion | LickertQuestion)[];
