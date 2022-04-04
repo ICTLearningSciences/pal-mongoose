@@ -9,7 +9,6 @@ No Commercial Use: This software shall be used for government purposes only and 
 */
 const { expect } = require("chai");
 const mongoUnit = require("mongo-unit");
-const mongoose = require("mongoose");
 const Survey = require("Survey");
 
 describe("Survey", function() {

@@ -554,6 +554,10 @@ declare module "pal-mongoose" {
     GTE = "GTE"
   }
 
+  export enum ChoiceEventType {
+    SAFETY_BUTTON = "SAFETY_BUTTON"
+  }
+
   export interface Condition {
     variable: string;
     operator: ComparisonType;
@@ -565,15 +569,19 @@ declare module "pal-mongoose" {
     delta: number;
   }
 
+  export interface ChoiceEvent {
+    type: ChoiceEventType;
+    value: string;
+  }
+
   export interface Choice {
     text: string;
     deltas: Delta[];
+    event?: ChoiceEvent;
   }
 
-  export interface LickertScaleEntry {
+  export interface LikertScaleEntry extends Choice {
     number: number;
-    label?: string;
-    deltas: Delta[];
   }
 
   export interface Question {
@@ -587,15 +595,15 @@ declare module "pal-mongoose" {
     randomizeChoices?: boolean;
   }
 
-  export interface LickertQuestion extends Question {
-    lickertScale: LickertScaleEntry[];
+  export interface LikertQuestion extends Question {
+    likertScale: LikertScaleEntry[];
   }
 
   export class Survey extends mongoose.Model {
     alias: string;
     displayName: string;
+    questions: (MCQuestion | LikertQuestion)[];
     specialEventConditions: Condition[];
-    questions: (MCQuestion | LickertQuestion)[];
 
     static paginate: (
       query?: any,

@@ -2147,11 +2147,11 @@ module.exports = {
         },
         {
           preconditions: [],
-          question: "Lickert How are you feeling today?",
-          lickertScale: [
+          question: "Likert How are you feeling today?",
+          likertScale: [
             {
               number: 1,
-              label: "bad",
+              text: "bad",
               deltas: []
             },
             {
@@ -2160,7 +2160,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "fine",
+              text: "fine",
               deltas: []
             },
             {
@@ -2169,7 +2169,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "great",
+              text: "great",
               deltas: []
             }
           ]
@@ -2212,6 +2212,10 @@ module.exports = {
             },
             {
               text: "I need immediate help right now",
+              event: {
+                type: "SAFETY_BUTTON",
+                value: ""
+              },
               deltas: []
             }
           ]
@@ -2335,6 +2339,10 @@ module.exports = {
             {
               text:
                 "I am having a serious crisis now and have been thinking about suicide as an option",
+              event: {
+                type: "SAFETY_BUTTON",
+                value: "Goal_SuicidePrevention_Node_SelfSuicideIdeation"
+              },
               deltas: []
             }
           ]
@@ -2696,10 +2704,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Stress-Free",
+              text: "Stress-Free",
               deltas: []
             },
             {
@@ -2708,7 +2716,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Some Stress",
+              text: "Some Stress",
               deltas: []
             },
             {
@@ -2717,7 +2725,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Stressed",
+              text: "Stressed",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -2736,7 +2744,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Worst Stress",
+              text: "Worst Stress",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -2756,10 +2764,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Good",
+              text: "Very Good",
               deltas: [
                 {
                   variableName: "SleepQuality",
@@ -2778,7 +2786,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Okay",
+              text: "Okay",
               deltas: [
                 {
                   variableName: "SleepQuality",
@@ -2797,7 +2805,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Poor Sleep",
+              text: "Poor Sleep",
               deltas: [
                 {
                   variableName: "SleepQuality",
@@ -2816,7 +2824,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Worst Sleep",
+              text: "Worst Sleep",
               deltas: [
                 {
                   variableName: "SleepQuality",
@@ -2836,10 +2844,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: []
             },
             {
@@ -2848,7 +2856,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: []
             },
             {
@@ -2857,7 +2865,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -2866,7 +2874,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -2882,10 +2890,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SocialSupport",
@@ -2904,7 +2912,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "SocialSupport",
@@ -2923,7 +2931,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: [
                 {
                   variableName: "SocialSupport",
@@ -2942,7 +2950,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: [
                 {
                   variableName: "SocialSupport",
@@ -3001,10 +3009,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: []
             },
             {
@@ -3013,7 +3021,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: []
             },
             {
@@ -3022,7 +3030,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -3031,7 +3039,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3046,10 +3054,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3068,7 +3076,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3082,7 +3090,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -3091,7 +3099,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3142,10 +3150,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3164,7 +3172,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3178,7 +3186,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -3187,7 +3195,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3202,10 +3210,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3224,7 +3232,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: []
             },
             {
@@ -3238,7 +3246,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3257,7 +3265,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3277,10 +3285,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3307,7 +3315,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3325,7 +3333,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -3334,7 +3342,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3350,10 +3358,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3380,7 +3388,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3407,7 +3415,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: []
             },
             {
@@ -3416,7 +3424,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3431,10 +3439,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3453,7 +3461,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3472,7 +3480,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: [
                 {
                   variableName: "SelfRisk",
@@ -3491,7 +3499,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: []
             }
           ]
@@ -3506,10 +3514,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very Often",
+              text: "Very Often",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3528,7 +3536,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Sometimes",
+              text: "Sometimes",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3547,7 +3555,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Seldom",
+              text: "Seldom",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3566,7 +3574,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Never",
+              text: "Never",
               deltas: [
                 {
                   variableName: "NegativeFeelings",
@@ -3691,10 +3699,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Stress-Free",
+              text: "Stress-Free",
               deltas: []
             },
             {
@@ -3703,7 +3711,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Some Stress",
+              text: "Some Stress",
               deltas: []
             },
             {
@@ -3712,7 +3720,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Stressed",
+              text: "Stressed",
               deltas: []
             },
             {
@@ -3721,7 +3729,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Worst Stress",
+              text: "Worst Stress",
               deltas: []
             }
           ]
@@ -3773,10 +3781,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very",
+              text: "Very",
               deltas: []
             },
             {
@@ -3785,7 +3793,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Somewhat",
+              text: "Somewhat",
               deltas: []
             },
             {
@@ -3794,7 +3802,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Little",
+              text: "Little",
               deltas: []
             },
             {
@@ -3803,7 +3811,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Not at All",
+              text: "Not at All",
               deltas: []
             }
           ]
@@ -3819,10 +3827,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very",
+              text: "Very",
               deltas: []
             },
             {
@@ -3831,7 +3839,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Somewhat",
+              text: "Somewhat",
               deltas: []
             },
             {
@@ -3840,7 +3848,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Little",
+              text: "Little",
               deltas: []
             },
             {
@@ -3849,7 +3857,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Not at All",
+              text: "Not at All",
               deltas: []
             }
           ]
@@ -3865,10 +3873,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very",
+              text: "Very",
               deltas: []
             },
             {
@@ -3877,7 +3885,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Somewhat",
+              text: "Somewhat",
               deltas: []
             },
             {
@@ -3886,7 +3894,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Little",
+              text: "Little",
               deltas: []
             },
             {
@@ -3895,7 +3903,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Not at All",
+              text: "Not at All",
               deltas: []
             }
           ]
@@ -3913,10 +3921,10 @@ module.exports = {
               value: 0
             }
           ],
-          lickertScale: [
+          likertScale: [
             {
               number: 1,
-              label: "Very",
+              text: "Very",
               deltas: []
             },
             {
@@ -3925,7 +3933,7 @@ module.exports = {
             },
             {
               number: 3,
-              label: "Somewhat",
+              text: "Somewhat",
               deltas: []
             },
             {
@@ -3934,7 +3942,7 @@ module.exports = {
             },
             {
               number: 5,
-              label: "Little",
+              text: "Little",
               deltas: []
             },
             {
@@ -3943,7 +3951,7 @@ module.exports = {
             },
             {
               number: 7,
-              label: "Not at All",
+              text: "Not at All",
               deltas: []
             }
           ]
