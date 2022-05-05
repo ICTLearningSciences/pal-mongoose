@@ -254,6 +254,7 @@ declare module "pal-mongoose" {
     name: string;
     recommender: string;
     knowledgeComponents: KnowledgeComponentRelevance[];
+    requiredLessons: mongoose.Types.ObjectId[];
     prerequisiteTopics: mongoose.Types.ObjectId[];
     attributeRelevance: Variable[];
 
