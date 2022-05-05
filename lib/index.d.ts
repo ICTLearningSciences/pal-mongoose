@@ -342,6 +342,22 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<PlanDialogue>>;
   }
 
+  export class SaferDialogue extends mongoose.Model {
+    alias: string;
+    type: string;
+    intro: string;
+    question: string;
+    speech: string[];
+    nodes: string[];
+    content: { type: string; value: string };
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<SaferDialogue>>;
+  }
+
   export class User extends mongoose.Model {
     creationDeviceId: string;
     deleted: boolean;
@@ -530,5 +546,69 @@ declare module "pal-mongoose" {
       options?: any,
       callback?: any
     ) => Promise<PaginatedResolveResult<UserLessonSession>>;
+  }
+
+  export enum ComparisonType {
+    LTE = "LTE",
+    EQ = "EQ",
+    GTE = "GTE"
+  }
+
+  export enum ChoiceEventType {
+    SAFETY_BUTTON = "SAFETY_BUTTON"
+  }
+
+  export interface Condition {
+    variable: string;
+    operator: ComparisonType;
+    value: number;
+  }
+
+  export interface Delta {
+    variableName: string;
+    delta: number;
+  }
+
+  export interface ChoiceEvent {
+    type: ChoiceEventType;
+    value: string;
+  }
+
+  export interface Choice {
+    text: string;
+    deltas: Delta[];
+    event?: ChoiceEvent;
+  }
+
+  export interface LikertScaleEntry extends Choice {
+    number: number;
+  }
+
+  export interface Question {
+    palText?: string[];
+    question: string;
+    preconditions: Condition[];
+  }
+
+  export interface MCQuestion extends Question {
+    choices: Choice[];
+    randomizeChoices?: boolean;
+  }
+
+  export interface LikertQuestion extends Question {
+    likertScale: LikertScaleEntry[];
+  }
+
+  export class Survey extends mongoose.Model {
+    alias: string;
+    displayName: string;
+    questions: (MCQuestion | LikertQuestion)[];
+    specialEventConditions: Condition[];
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Survey>>;
   }
 }
