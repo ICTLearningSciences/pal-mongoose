@@ -17,7 +17,8 @@
     "test:lint": "eslint lib --ext ts --ext js",
     "test:types": "tsc --noEmit",
     "test:license": "license-check-and-add check -f license-config.json",
-    "license:fix": "license-check-and-add remove -f license-config.json && license-check-and-add add -f license-config.json"
+    "license:fix": "license-check-and-add remove -f license-config.json && license-check-and-add add -f license-config.json",
+    "license:deploy": "license-check-and-add remove -f license-config.json && license-check-and-add add -f $LICENSE_CONFIG"
   },
   "repository": {
     "type": "git",
