@@ -14,10 +14,11 @@ const Career = require("Career");
 
 describe("Career", function() {
   beforeEach(async () => {
+    await mongoUnit.drop(); //dropping in afterEach wasn't being reflected here for some reason, this is a workaround.
     await mongoUnit.load(require("./fixtures/mongodb/data-default.js"));
   });
 
-  afterEach(async () => {
+  after(async () => {
     await mongoUnit.drop();
   });
 

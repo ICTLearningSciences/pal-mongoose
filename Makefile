@@ -1,3 +1,5 @@
+LICENSE_CONFIG?="license-config.json"
+
 .PHONY: clean
 clean:
 	rm -rf node_modules
@@ -42,6 +44,10 @@ LICENSE:
 .PHONY: license
 license: LICENSE node_modules/license-check-and-add
 	npm run license:fix
+
+.PHONY: license-deploy
+license-deploy: node_modules/license-check-and-add
+	LICENSE_CONFIG=${LICENSE_CONFIG} npm run license:deploy
 
 .PHONY: test-license
 test-license: LICENSE node_modules/license-check-and-add
