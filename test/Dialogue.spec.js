@@ -9,9 +9,9 @@ No Commercial Use: This software shall be used for government purposes only and 
 */
 const { expect } = require("chai");
 const mongoUnit = require("mongo-unit");
-const Survey = require("Survey");
+const Dialogue = require("Dialogue");
 
-describe("Survey", function() {
+describe("Dialogue", function() {
   beforeEach(async () => {
     await mongoUnit.load(require("./fixtures/mongodb/data-default.js"));
   });
@@ -22,7 +22,7 @@ describe("Survey", function() {
 
   describe("paginate", function() {
     it("finds an initial page of items with a default limit", async () => {
-      const results = await Survey.paginate(
+      const results = await Dialogue.paginate(
         {},
         {
           sort: { _id: 1 }
@@ -35,7 +35,7 @@ describe("Survey", function() {
     });
 
     it("finds an initial page of items with a specified limit", async () => {
-      const results = await Survey.paginate(
+      const results = await Dialogue.paginate(
         {},
         {
           sort: { _id: 1 },
@@ -46,12 +46,10 @@ describe("Survey", function() {
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(1);
       expect(results.hasMore).to.eql(true);
-      expect(results.items[0].alias).to.eql("survey1");
-      expect(results.items[0].questions[0].palText).to.eql([
-        "penguins",
-        "paltext2"
-      ]);
-      expect(results.items[0].questions[0].palAudio).to.eql(["p_1", "p_2"]);
+      expect(results.items[0].alias).to.eql("intro_1");
+      expect(results.items[0].text).to.eql("Welcome to Navy SAFER!");
+      expect(results.items[0].audioFile).to.eql("intro_1");
+      expect(results.items[0].type).to.eql("Signup");
     });
   });
 });

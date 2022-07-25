@@ -69,6 +69,21 @@ declare module "pal-mongoose" {
     topic: mongoose.Types.ObjectId;
   }
 
+  export class Dialogue extends mongoose.Model {
+    alias: string;
+    text: string;
+    audioFile: string;
+    audioText: string;
+    priority: number;
+    type: string;
+
+    static paginate: (
+      query?: any,
+      options?: any,
+      callback?: any
+    ) => Promise<PaginatedResolveResult<Dialogue>>;
+  }
+
   export interface Focus {
     desc: string;
     name: string;
@@ -587,6 +602,7 @@ declare module "pal-mongoose" {
 
   export interface Question {
     palText?: string[];
+    palAudio?: string[];
     question: string;
     preconditions: Condition[];
   }
