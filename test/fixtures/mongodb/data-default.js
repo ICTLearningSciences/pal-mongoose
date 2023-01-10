@@ -2128,6 +2128,7 @@ module.exports = {
       questions: [
         {
           palText: ["penguins", "paltext2"],
+          palAudio: ["p_1", "p_2"],
           preconditions: [],
           question: "MCQ How are you feeling today?",
           choices: [
@@ -2184,7 +2185,7 @@ module.exports = {
       questions: [
         // #1
         {
-          palText: "Welcome to the Navy SAFER app!",
+          palText: ["Welcome to the Navy SAFER app!"],
           question: `Navy SAFER shares ways to protect yourself and people close to you from stress, mental health issues, and suicide. We prioritize training modules that are relevant to you, based on a few minute survey which will remain anonymous.
 
         Before we get started, if you or someone else are having a mental health crisis *now* then please call the National Suicide Prevention Lifeline at (1-800-273-8255) and dial 1 for the Veteran's Crisis Line. Also, click on the SOS icon in the upper-right to quickly reach other resources if you need help now.
@@ -2222,8 +2223,10 @@ module.exports = {
         },
         // #2
         {
-          palText:
-            "Sorry to hear that you aren't comfortable, we will try to do better.",
+          palText: [
+            "Sorry to hear that you aren't comfortable, we will try to do better."
+          ],
+          palAudio: ["p_3"],
           question: "What is the biggest issue that makes you uncomfortable?",
           preconditions: [
             {
@@ -2271,8 +2274,9 @@ module.exports = {
         },
         // #4
         {
-          palText:
-            "It's my job to help understand where you're at and deliver the best information for your goals.",
+          palText: [
+            "It's my job to help understand where you're at and deliver the best information for your goals."
+          ],
           question:
             "Navy life has a lot of stresses, in addition to what the average person encounters. What are you hoping to get from this app, so I can help you better?",
           preconditions: [
@@ -2349,8 +2353,9 @@ module.exports = {
         },
         // #5
         {
-          palText:
-            "The next few questions will quickly check what personal stress topics might be most relevant.",
+          palText: [
+            "The next few questions will quickly check what personal stress topics might be most relevant."
+          ],
           question: "How are you feeling today?",
           preconditions: [
             {
@@ -2403,7 +2408,7 @@ module.exports = {
         },
         // #6
         {
-          palText: "Sorry to hear you haven't been feeling great.",
+          palText: ["Sorry to hear you haven't been feeling great."],
           question: "When did you start feeling this way?",
           preconditions: [
             {
@@ -2442,7 +2447,7 @@ module.exports = {
         },
         // #7
         {
-          palText: "Thank you for being direct about where you are at",
+          palText: ["Thank you for being direct about where you are at"],
           question:
             "How intense are these negative feelings when you have them? Consider from a scale of Extremely Intense (e.g., very painful, hard to dismiss, or debilitating) to Minor (e.g., minorly upset, slight sadness).",
           preconditions: [
@@ -2488,8 +2493,9 @@ module.exports = {
         },
         // #8
         {
-          palText:
-            "When under a lot of stress, it's normal to have intense negative feelings.",
+          palText: [
+            "When under a lot of stress, it's normal to have intense negative feelings."
+          ],
           question:
             "When you feel this way, do you ever think life isn't worth living sometimes?",
           preconditions: [
@@ -2565,8 +2571,9 @@ module.exports = {
         },
         // #9
         {
-          palText:
-            "When you are feeling this, asking for help is a sign of strength.  It may be difficult to take those steps, but it's worth it.",
+          palText: [
+            "When you are feeling this, asking for help is a sign of strength.  It may be difficult to take those steps, but it's worth it."
+          ],
           question:
             "While we suggested some places to reach out for help, we can also recommend some more specific options. What best describes the kind of help you need right now?",
           preconditions: [
@@ -2599,8 +2606,9 @@ module.exports = {
         },
         // # 10
         {
-          palText:
-            "It sounds like you are really struggling. I may just be a bot, but I was made by people who care that you get help.",
+          palText: [
+            "It sounds like you are really struggling. I may just be a bot, but I was made by people who care that you get help."
+          ],
           question:
             "If you have considered it, when was the last time you thought about suicide? (reminder: your responses are confidential)",
           preconditions: [
@@ -2648,7 +2656,7 @@ module.exports = {
         },
         // # 11
         {
-          palText: "I appreciate you sticking with me.",
+          palText: ["I appreciate you sticking with me."],
           question: " Have you ever thought about how you would do it?",
           preconditions: [
             {
@@ -3586,8 +3594,9 @@ module.exports = {
         },
         // #26
         {
-          palText:
-            "Thank you for that. Now we will ask about your experience so far.",
+          palText: [
+            "Thank you for that. Now we will ask about your experience so far."
+          ],
           question:
             "How much experience do you have with using stress management techniques (breathing exercises, reframing, positive reflections)?",
           preconditions: [
@@ -3656,7 +3665,7 @@ module.exports = {
         },
         // #28
         {
-          palText: "These questions are about how you might help others.",
+          palText: ["These questions are about how you might help others."],
           question:
             "Thinking about the people in your life that you are concerned about, to which issue concerns you most?",
           preconditions: [
@@ -3910,8 +3919,9 @@ module.exports = {
         },
         // #34
         {
-          palText:
-            "Great, this will be the last one, and then we'll start your personalized training path.",
+          palText: [
+            "Great, this will be the last one, and then we'll start your personalized training path."
+          ],
           question:
             "How effectively do you think you could work with a sailor to recognize their individual warning signs to prevent or respond to a mental health emergency?",
           preconditions: [
@@ -3957,6 +3967,21 @@ module.exports = {
           ]
         }
       ]
+    }
+  ],
+
+  dialogues: [
+    {
+      alias: "intro_1",
+      text: "Welcome to Navy SAFER!",
+      audioFile: "intro_1",
+      type: "Signup"
+    },
+    {
+      alias: "i_1",
+      text:
+        "Based on your needs and current mastery, we're recommending topics in this order.",
+      audioFile: "i_1"
     }
   ]
 };
