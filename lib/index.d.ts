@@ -245,6 +245,8 @@ declare module "pal-mongoose" {
     contentType: string;
     duration: number;
     isCmiAU: boolean;
+    firstTimeParams: string[];
+    firstTimeCategory: string;
     explorationLevel: number;
     knowledgeComponents: KnowledgeComponentRelevance[];
     name: string;
