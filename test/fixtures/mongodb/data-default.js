@@ -1903,14 +1903,6 @@ module.exports = {
       nameLower: "expert",
       email: "expert@pal.ict.usc.edu",
       password: "acceptsanything"
-    },
-    {
-      _id: ObjectId("5bf4a366becb4e208de99099"),
-      name: "DeletedUser",
-      nameLower: "deleteduser",
-      email: "deleteduser@pal.ict.usc.edu",
-      password: "acceptsanything",
-      deleted: true
     }
   ],
 
@@ -1940,6 +1932,7 @@ module.exports = {
 
   usercohorts: [
     {
+      _id: ObjectId("5bf4a366becb4e208de99091"),
       user: ObjectId("5dd88892c012321c14267156"),
       cohort: ObjectId("5ed82fb2a869c32825c74474"),
       updatedAt: "1999-06-05T06:21:34.411Z"
