@@ -11,6 +11,8 @@ const { expect } = require("chai");
 const mongoUnit = require("mongo-unit");
 const mongoose = require("mongoose");
 const User = require("User");
+const UserAccessToken = require("UserAccessToken");
+const UserCohort = require("UserCohort");
 
 describe("User", function() {
   beforeEach(async () => {
@@ -19,6 +21,50 @@ describe("User", function() {
 
   afterEach(async () => {
     await mongoUnit.drop();
+  });
+
+  describe("deleteAccount", function() {
+    it("succeeds when username and password are valid", async () => {
+      const success = await User.deleteAccount("kcarr", "asdf");
+      expect(success).to.be.true;
+      const user = await User.findActiveById("5dd88892c012321c14267155");
+      expect(user).to.not.exist;
+      const token = await UserAccessToken.findById("5bf4a366becb4e208de99091");
+      expect(token).to.not.exist;
+    });
+
+    it("succeeds when email and password are valid", async () => {
+      const success = await User.deleteAccount("larry", "asdf");
+      expect(success).to.be.true;
+      const user = await User.findActiveById("5dd88892c012321c14267156");
+      expect(user).to.not.exist;
+      const token = await UserAccessToken.findById("5bf4a366becb4e208de99093");
+      expect(token).to.not.exist;
+      const cohort = await UserCohort.findById("5bf4a366becb4e208de99091");
+      expect(cohort).to.not.exist;
+    });
+
+    it("throws an error if username not found", async () => {
+      let expectedErr = null;
+      try {
+        await User.deleteAccount("noneexistantuser", "asdf");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.eql("Username not found.");
+    });
+
+    it("throws an error if password is invalid", async () => {
+      let expectedErr = null;
+      try {
+        await User.deleteAccount("kcarr", "wrongpassword");
+      } catch (err) {
+        expectedErr = err;
+      }
+      expect(expectedErr).to.exist;
+      expect(expectedErr.message).to.eql("Incorrect password.");
+    });
   });
 
   describe("findActiveById", function() {
@@ -41,24 +87,14 @@ describe("User", function() {
       expect(user.name).to.eql("kcarr");
       expect(user.email).to.eql("kcarr@ict.usc.edu");
     });
-
-    it("does not return a user for an existing user that is marked deleted", async () => {
-      const user = await User.findById(
-        mongoose.Types.ObjectId("5bf4a366becb4e208de99099")
-      ).exec();
-      expect(user.name).to.eql("DeletedUser");
-      expect(await User.findActiveById("5bf4a366becb4e208de99099")).to.not
-        .exist;
-    });
   });
 
   describe("findActive", function() {
-    it("finds all users EXCEPT deleted users", async () => {
+    it("finds all users", async () => {
       const users = await User.findActive({});
       expect(users.find(u => u.name === "kcarr").name).to.eql("kcarr");
       expect(users.find(u => u.name === "larry").name).to.eql("larry");
       expect(users.find(u => u.name === "Expert").name).to.eql("Expert");
-      expect(users.find(u => u.name === "DeletedUser")).to.not.exist;
     });
 
     it("applies a query like the default mongoose find function", async () => {
@@ -75,13 +111,6 @@ describe("User", function() {
       });
       expect(user.name).to.eql("kcarr");
     });
-
-    it("never returns a deleted user", async () => {
-      const user = await User.findOneActive({
-        name: "DeletedUser"
-      });
-      expect(user).to.not.exist;
-    });
   });
 
   describe("isUserNameAvailable", function() {
@@ -93,11 +122,6 @@ describe("User", function() {
     it("determines an untaken user name is available", async () => {
       const available = await User.isUserNameAvailable("untakenname");
       expect(available).to.eql(true);
-    });
-
-    it("determines a user name taken by a deleted user is unavailable", async () => {
-      const available = await User.isUserNameAvailable("DeletedUser");
-      expect(available).to.eql(false);
     });
   });
 
@@ -111,13 +135,6 @@ describe("User", function() {
       const available = await User.isEmailAvailable("kcarr100@ict.usc.edu");
       expect(available).to.eql(true);
     });
-
-    it("determines an email assigned to a deleted user is unavailable", async () => {
-      const available = await User.isEmailAvailable(
-        "deleteduser@pal.ict.usc.edu"
-      );
-      expect(available).to.eql(false);
-    });
   });
 
   describe("paginate", function() {
@@ -130,7 +147,7 @@ describe("User", function() {
       );
       expect(results).to.exist;
       expect(results.items).to.exist;
-      expect(results.items.length).to.eql(4);
+      expect(results.items.length).to.eql(3);
       expect(results.hasMore).to.eql(false);
     });
 
@@ -161,7 +178,6 @@ describe("User", function() {
       expect(results).to.exist;
       expect(results.items).to.exist;
       expect(results.items.length).to.eql(1);
-      expect(results.items[0].nameLower).to.eql("deleteduser");
       expect(results.hasMore).to.eql(true);
     });
   });

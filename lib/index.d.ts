@@ -63,12 +63,6 @@ declare module "pal-mongoose" {
     ) => Promise<PaginatedResolveResult<Cohort>>;
   }
 
-  export class DemoUser extends mongoose.Model {
-    goal: mongoose.Types.ObjectId;
-    focus: mongoose.Types.ObjectId;
-    topic: mongoose.Types.ObjectId;
-  }
-
   export class Dialogue extends mongoose.Model {
     alias: string;
     text: string;
@@ -378,8 +372,6 @@ declare module "pal-mongoose" {
 
   export class User extends mongoose.Model {
     creationDeviceId: string;
-    deleted: boolean;
-    deletedReason: string;
     email: string;
     lastDeviceId: string;
     lastLoginAt: Date;
@@ -390,8 +382,6 @@ declare module "pal-mongoose" {
 
     static authenticate: (accessToken: string) => Promise<User | null>;
 
-    static deleteAccount: (reason: string) => Promise<User>;
-
     static findActive: (query: any) => Promise<User[]>;
 
     static findActiveById: (
@@ -400,11 +390,14 @@ declare module "pal-mongoose" {
 
     static findOneActive: (query: any) => Promise<User>;
 
-    isDemoUser: () => boolean;
-
     static isEmailAvailable: (userName: string) => Promise<boolean>;
 
     static isUserNameAvailable: (userName: string) => Promise<boolean>;
+
+    static deleteAccount: (
+      userName: string,
+      password: string
+    ) => Promise<boolean>;
 
     static login: (
       userId: string | mongoose.Types.ObjectId,
